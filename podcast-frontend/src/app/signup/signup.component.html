@@ -1,0 +1,91 @@
+<section class="site-banner">
+  <div class=" container">
+    <div class="row">
+      <div class="col-lg-6 col-md-12 banner-image" style="margin-top: 2%;">
+        <img src="assets/banner1.png" alt="banner-img" class="img-fluid">
+      </div>
+      <div class="col-lg-6 col-md-12 site-title">
+        <div class="alert alert-danger" *ngIf="signUpError">{{signUpErrorMessage}}</div>
+        <div class="global-container">
+          <div class="card login-form">
+            <div class="card-body">
+              <h3 class="card-title text-center">Sign Up</h3>
+              <div class="card-text">
+                <form (ngSubmit)="!signupForm.invalid && regiter()" #signupForm="ngForm">
+                  <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" [(ngModel)]="signupFrom.fullName" name="fullName" #fullName="ngModel"
+                      class="form-control form-control-sm" id="fullName" required minlength="3">
+                    <div class="alert alert-danger" *ngIf="fullName.touched && !fullName.valid">
+                      <div *ngIf="fullName.errors.required">Full Name is required</div>
+                      <div *ngIf="fullName.errors.minlength">Full Name should be at least 3 characters </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="userName">Username</label>
+                    <input type="text" [(ngModel)]="signupFrom.userName" name="userName" #userName="ngModel"
+                      class="form-control form-control-sm" id="userName" required minlength="3">
+                    <div class="alert alert-danger" *ngIf="userName.touched && !userName.valid">
+                      <div *ngIf="userName.errors.required">userName is required</div>
+                      <div *ngIf="userName.errors.minlength">userName should be at least 3 characters</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" [(ngModel)]="signupFrom.email" name="email" #email="ngModel"
+                      class="form-control form-control-sm" id="email" required
+                      pattern="^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+$">
+                    <div class="alert alert-danger" *ngIf="email.touched && !email.valid">
+                      <div *ngIf="email.errors.required">Email is required</div>
+                      <div *ngIf="email.errors.pattern">Wrong Email Format</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" [(ngModel)]="signupFrom.password" #password="ngModel" name="password"
+                      class="form-control form-control-sm" id="password" required
+                      pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$">
+                  </div>
+                  <div class="alert alert-danger" *ngIf="password.touched && !password.valid">
+                    <div *ngIf="password.errors.required">Password is required</div>
+                    <div *ngIf="password.errors.pattern">{{passwordError}}</div>
+                  </div>
+                  <!-- <div class="form-group">
+                    <label for="passwordConfirm">Confirm Password</label>
+                    <input type="password" ngModel #passwordConfirm="ngModel" name="passwordConfirm"
+                      class="form-control form-control-sm" id="passwordConfirm" pattern="" required>
+                    <div class="alert alert-danger" *ngIf="passwordConfirm.touched && !passwordConfirm.valid">
+                      <div *ngIf="passwordConfirm.errors.required">Password is required</div>
+                      <div *ngIf="passwordConfirm.errors.pattern">Password fileds don't match</div>
+                    </div>
+                  </div> -->
+                  <!-- <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" name="phone" class="form-control form-control-sm" id="phone"
+                      pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+                  </div> -->
+                  <!-- <div class="form-group">
+                    <label for="dob">Date Of Birth</label>
+                    <input type="date" class="form-control form-control-sm" id="dob">
+                  </div> -->
+                  <div class="form-group">
+                    <label for="role">Role</label>
+                    <select class="form-select" for="role" [(ngModel)]="signupFrom.role" name="role" id="role">
+                      <option value="USER">User</option>
+                      <option value="CREATOR">Creator</option>
+                    </select>
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-block" [disabled]="signupForm.invalid">Sign
+                    Up</button>
+                  <div class="sign-up">
+                    Have an account? <a routerLink="/login">Sign In</a>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

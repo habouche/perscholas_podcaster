@@ -1,0 +1,39 @@
+<section class="site-banner">
+  <div class=" container">
+    <div class="row">
+      <div class="col-lg-6 col-md-12 banner-image" style="margin-top: 2%;">
+        <img src="assets/banner.png" alt="banner-img" class="img-fluid">
+      </div>
+      <div class="col-lg-6 col-md-12 site-title">
+        <div class="alert alert-warning" *ngIf='invalidLogin'>{{errorMessage}}</div>
+        <div class="global-container">
+          <div class="card login-form">
+            <div class="card-body">
+              <h3 class="card-title text-center">Log In</h3>
+              <div class="card-text">
+                <form>
+                  <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" class="form-control form-control-sm" [(ngModel)]='username'
+                      aria-describedby="usernameHelp">
+                  </div>
+                  <div class="form-group">
+                    <label for="password">Password</label>
+                    <a href="#" style="float:right;font-size:12px;">Forgot password?</a>
+                    <input type="password" name="password" class="form-control form-control-sm" [(ngModel)]='password'
+                      aria-describedby="passwordHelp">
+                  </div>
+                  <button type="submit" (click)=handleLogin() class="btn btn-primary btn-block">Sign in</button>
+
+                  <div class="sign-up">
+                    Don't have an account? <a routerLink="/signup">Create One</a>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,55 @@
+<!-- <section class="dark">
+  <div class="container py-4"> -->
+
+<br>
+<br>
+
+<div class="alert alert-warning" style="align-items: center;" *ngIf="podcasts == null">No Podcasts to display currently
+</div>
+<article class="podcast dark" *ngFor="let podcast of podcasts">
+  <a class="podcast__img_link">
+    <img class="podcast__img" src="https://picsum.photos/1000/1000" />
+  </a>
+  <div class="podcast__text">
+    <h1 class="podcast__title"><a href="#">{{podcast.title}}</a></h1>
+    <div class=" podcast__rating">
+      <span class="fa fa-star checked"></span>
+      <span class="fa fa-star checked"></span>
+      <span class="fa fa-star checked"></span>
+      <span class="fa fa-star"></span>
+      <span class="fa fa-star"></span>
+    </div>
+
+    <span>{{podcast.creator.fullName}}</span>
+    <div class="likes">
+      <span class="px-2"><i class="fa fa-heart"><span class="px-2">{{podcast.likes}}</span></i></span>
+    </div>
+
+    <div class="listenScore">
+      <span class="px-2"><i class="fa fa-ear"><span class="px-2">{{podcast.likes}}</span></i> </span>
+    </div>
+
+    <div class="podcast__bar"></div>
+    <div class="podcast__preview-txt">{{podcast.description}} In this episode of The Rough Cut we close out our study of
+      the
+      final Skywalker trilogy with a look back on the film that helped the dormant franchise make the
+      jump to lightspeed, Episode VII - The Force Awakens. Recorded in Amsterdam in front of a
+      festival audience in 2018, editor Maryann Brandon ACE recounts her work on The Force Awakens
+      just as she was about to begin editing what would come to be known as Episode IX - The Rise of
+      Skywalker.
+    </div>
+    <div class="podcast__bar2"></div>
+    <ul class="podcast__tagbox">
+
+      <li class="tag__item" *ngFor="let category of podcast.categories">
+        <a [routerLink]="['/podcasts',category.category]"><i class="fa fa-tag mr-2"></i>{{category.category}}</a>
+      </li>
+
+      <li class="tag__item" style="background-color: #EA035C">
+        <a href="#"><i class="bi bi-arrow-up-circle-fill"></i> Subscribe</a>
+      </li>
+    </ul>
+  </div>
+</article>
+<!-- </div>
+</section> -->

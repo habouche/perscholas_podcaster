@@ -1,0 +1,28 @@
+<div class="creators">
+  <div class="creator" *ngFor="let user of users">
+    <div class="" data-id="creator-item" data-category="trending">
+      <div class="">
+        <a class="" smooth="true" href="">
+          <img src="https://picsum.photos/1000/1000" width="136" height="136" class="">
+          <span class=""></span>
+        </a>
+        <div class="">
+          <div class="">
+            <a data-id="entity-link" class=" " aria-label="Joe Rogan" smooth="true" href="">
+              <div class="" style="overflow: hidden; text-overflow: ellipsis;
+               -webkit-box-orient: vertical;display: -webkit-box; -webkit-line-clamp: 3;">
+                {{user.fullName}}
+              </div>
+            </a>
+          </div>
+          <div class="host">
+            <div class="host_title">host</div>
+            <div class="host_name" *ngFor="let podcast of user.createdPodcasts">
+              <span>{{podcast.title}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
