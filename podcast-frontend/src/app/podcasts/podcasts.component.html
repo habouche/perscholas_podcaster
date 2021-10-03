@@ -11,7 +11,7 @@
     <img class="podcast__img" src="https://picsum.photos/1000/1000" />
   </a>
   <div class="podcast__text">
-    <h1 class="podcast__title"><a href="#">{{podcast.title}}</a></h1>
+    <h1 class="podcast__title"><a [routerLink]="['/episodes',podcast.id]">{{podcast.title}}</a></h1>
     <div class=" podcast__rating">
       <span class="fa fa-star checked"></span>
       <span class="fa fa-star checked"></span>

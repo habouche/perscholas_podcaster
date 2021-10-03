@@ -8,10 +8,9 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Table(name = "episodes", indexes = {
-        @Index(name = "podcast_id_UNIQUE", columnList = "podcast_id", unique = true)
-})
+
 @Entity
+@Table(name = "episodes")
 @Data
 public class Episode {
 

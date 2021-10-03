@@ -24,10 +24,11 @@ public class PodcastController {
     private UserRepository userRepository;
 
     @Autowired
-    private PodcastRepository podcastRepository;
+    private EpisodeRepository episodeRepository;
 
     @Autowired
-    private EpisodeRepository episodeRepository;
+    private PodcastRepository podcastRepository;
+
 
     @GetMapping("/user/podcasts")
     @ResponseBody
@@ -49,6 +50,15 @@ public class PodcastController {
     public List<Podcast> searchPodcasts(@RequestParam(required = false) String title ) {
 
         return this.podcastRepository.findByTitleLike(title);
+    }
+
+    @RequestMapping("/user/podcast/episodes")
+    @ResponseBody
+    public List<Episode> getEpisodesByPodcastId(@RequestParam String id) {
+
+        System.out.println("id:" +Integer.parseInt(id));
+
+        return episodeRepository.findByPodcastId(Integer.parseInt(id));
     }
 
     @GetMapping("/")
