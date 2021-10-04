@@ -40,7 +40,7 @@ export class Episode {
     public title: string,
     public description: string,
     public audioLink: string,
-    public pubDate: Date,
+    public pubDate: string,
     public podcast: Podcast
   ) {}
 }
@@ -79,7 +79,7 @@ export class PodcastsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getAllPodcasts();
+    // this.getAllPodcasts();
     this.searchService.currentMessage.subscribe((message) => {
       this.searchWord = message;
       if (this.searchWord.length === 0) {

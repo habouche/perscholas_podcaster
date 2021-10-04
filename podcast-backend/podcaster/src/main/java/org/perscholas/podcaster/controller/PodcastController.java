@@ -37,6 +37,13 @@ public class PodcastController {
         return this.podcastRepository.findAll();
     }
 
+    @GetMapping("/user/podcast")
+    @ResponseBody
+    public Optional<Podcast> getPodcastById(@RequestParam String id) {
+
+        return this.podcastRepository.findById(Integer.parseInt(id));
+    }
+
     @GetMapping("/user/creator/podcasts")
     @ResponseBody
     public Set<Podcast> getPodcastsByCreator(@RequestParam String username) {
