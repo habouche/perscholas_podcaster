@@ -10,6 +10,7 @@ import { RouteGuardService } from './service/route-guard.service';
 import { CreatorsComponent } from './creators/creators.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { EpisodesComponent } from './episodes/episodes.component';
+import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -37,6 +38,11 @@ const routes: Routes = [
   {
     path: 'categories',
     component: CategoriesComponent,
+    canActivate: [RouteGuardService],
+  },
+  {
+    path: 'subscriptions',
+    component: SubscriptionsComponent,
     canActivate: [RouteGuardService],
   },
   {

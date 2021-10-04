@@ -44,6 +44,7 @@ public class SubscriptionController {
     @GetMapping("/subscriptions")
     @ResponseBody
     public Optional<List<Podcast>> getSubscriptions(@RequestParam String username){
+        System.out.println("username: "+username    );
 
         return Optional.ofNullable(
                 this.userRepository

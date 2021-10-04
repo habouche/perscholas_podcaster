@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HardcodedAuthenticationService } from '../service/hardcoded-authentication.service';
 import { PodcastService } from '../service/podcast.service';
 import { SearchService } from '../service/data/search.service';
@@ -69,8 +69,9 @@ export class Podcast {
   styleUrls: ['./podcasts.component.css'],
 })
 export class PodcastsComponent implements OnInit {
+  @Input() context = 'podcasts';
   searchWord: string;
-  podcasts: Podcast[];
+  @Input() podcasts: Podcast[];
   text: string;
   constructor(
     private podcastService: PodcastService,
@@ -80,10 +81,14 @@ export class PodcastsComponent implements OnInit {
 
   ngOnInit(): void {
     // this.getAllPodcasts();
+    console.log(this.context);
     this.searchService.currentMessage.subscribe((message) => {
       this.searchWord = message;
       if (this.searchWord.length === 0) {
-        this.getAllPodcasts();
+        if (this.context === 'podcasts') {
+          this.getAllPodcasts();
+        } else {
+        }
       } else {
         this.searchPodcasts();
       }
