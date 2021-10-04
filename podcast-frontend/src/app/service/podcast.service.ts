@@ -18,6 +18,19 @@ export class PodcastService {
     );
   }
 
+  getAPodcastById(podcastiId: any): Observable<Podcast> {
+    const options = podcastiId
+      ? { params: new HttpParams().set('id', podcastiId) }
+      : {};
+    return this.http
+      .get<any>('http://localhost:8080/user/podcast', options)
+      .pipe(
+        map((response) => {
+          return response;
+        })
+      );
+  }
+
   getAPodcastEpisodesById(podcastiId: string): Observable<Episode[]> {
     const options = podcastiId
       ? { params: new HttpParams().set('id', podcastiId) }

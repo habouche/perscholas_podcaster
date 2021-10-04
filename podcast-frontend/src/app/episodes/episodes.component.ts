@@ -10,6 +10,7 @@ import { PodcastService } from '../service/podcast.service';
 })
 export class EpisodesComponent implements OnInit {
   episodes: Episode[];
+  podcast: Podcast;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -17,7 +18,20 @@ export class EpisodesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getPodcastById();
     this.getEpisodesByPodcastId();
+  }
+
+  getPodcastById(): void {
+    const id = this.route.snapshot.params.podcast;
+    this.podcastService.getAPodcastById(id).subscribe(
+      (response) => {
+        this.podcast = response;
+      },
+      (error) => {
+        console.log(JSON.stringify(error));
+      }
+    );
   }
 
   getEpisodesByPodcastId(): void {
