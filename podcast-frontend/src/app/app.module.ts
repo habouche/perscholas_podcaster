@@ -14,6 +14,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { CreatorsComponent } from './creators/creators.component';
 import { EpisodesComponent } from './episodes/episodes.component';
 import { CategoriesComponent } from './categories/categories.component';
+import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { CategoriesComponent } from './categories/categories.component';
     CreatorsComponent,
     EpisodesComponent,
     CategoriesComponent,
+    SubscriptionsComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [
