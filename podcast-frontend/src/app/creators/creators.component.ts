@@ -11,9 +11,30 @@ export class CreatorsComponent implements OnInit {
   constructor(private creatorService: CreatorService) {}
 
   users: User[];
+  searchWord: string;
 
   ngOnInit(): void {
     this.getCreators();
+  }
+
+  searchCreator(): void {
+    this.creatorService.searchCreator(this.searchWord).subscribe(
+      (response) => {
+        if (response.length === 0 && this.searchWord.length > 0) {
+          this.users = null;
+        } else {
+          if (response.length === 0 && this.searchWord.length === 0) {
+            this.getCreators();
+          } else {
+            this.users = response;
+            console.log('user: ' + JSON.stringify(this.users));
+          }
+        }
+      },
+      (error) => {
+        console.log(JSON.stringify(error));
+      }
+    );
   }
 
   getCreators(): void {

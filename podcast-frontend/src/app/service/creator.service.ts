@@ -18,4 +18,32 @@ export class CreatorService {
       })
     );
   }
+
+  getPodcastsByCreator(username: string): Observable<User[]> {
+    const options = username
+      ? { params: new HttpParams().set('username', username) }
+      : {};
+    return this.http
+      .get<any>('http://localhost:8080/user/creator/podcasts', options)
+      .pipe(
+        map((response) => {
+          console.log('podcasts:' + JSON.stringify(response));
+          return response;
+        })
+      );
+  }
+
+  searchCreator(searchWord: string): Observable<User[]> {
+    const options = searchWord
+      ? { params: new HttpParams().set('username', searchWord) }
+      : {};
+    return this.http
+      .get<any>('http://localhost:8080/user/creators/search', options)
+      .pipe(
+        map((response) => {
+          console.log('podcasts:' + JSON.stringify(response));
+          return response;
+        })
+      );
+  }
 }

@@ -8,6 +8,7 @@ import org.perscholas.podcaster.repository.PodcastRepository;
 import org.perscholas.podcaster.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,7 +45,7 @@ public class SubscriptionController {
     @GetMapping("/subscriptions")
     @ResponseBody
     public Optional<List<Podcast>> getSubscriptions(@RequestParam String username){
-        System.out.println("username: "+username    );
+        System.out.println("username: "+username);
 
         return Optional.ofNullable(
                 this.userRepository

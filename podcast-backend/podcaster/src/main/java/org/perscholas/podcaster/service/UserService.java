@@ -43,6 +43,15 @@ public class UserService {
         return Optional.ofNullable(creators);
     }
 
+    public Optional<List<User>> searchCreators(String username){
+        List<User> creators = this.userRepository.findByUsernameLike(username).stream()
+                .filter(user -> user.getUserRoles().stream()
+                        .anyMatch(userRole -> userRole.getUserRole().equals("CREATOR")))
+                .collect(Collectors.toList());
+        System.out.println("creators : " +creators);
+        return Optional.ofNullable(creators);
+    }
+
 
 
 }
