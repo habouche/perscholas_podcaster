@@ -1,0 +1,22 @@
+.host {
+  margin-top: 50px;
+}
+
+.host .creator_name {
+  text-align: center;
+  color: #72788c;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.host .host_title {
+  color: black;
+  text-align: center;
+  font-size: large;
+}
+
+.host .podcast_name {
+  margin-top: 5%;
+  text-align: center;
+  color: #72788c;
+}

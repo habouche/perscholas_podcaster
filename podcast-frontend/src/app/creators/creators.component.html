@@ -3,12 +3,8 @@
   <input class="form-control" type="text" name="search" placeholder="Search" (input)="searchCreator()"
     [(ngModel)]="searchWord">
 </form>
-
 {{searchWord}}
-
-
-
-<div class="creators">
+<!-- <div class="creators">
   <div class="creator" *ngFor="let user of users" style="padding: 3%;">
     <div class="img">
       <a smooth="true" href="">
@@ -20,7 +16,14 @@
       <div class="host_title">Host</div>
       <div class="podcast_name" *ngFor="let podcast of user.createdPodcasts">
         <span>{{podcast.title}}</span>
-
       </div>
     </div>
   </div>
+</div> -->
+
+<div class="creators">
+  <ng-container *ngFor="let user of users" style="padding: 3%;">
+    <app-creator class="creator" [user]="user">
+    </app-creator>
+  </ng-container>
+</div>

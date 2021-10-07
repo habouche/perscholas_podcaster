@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../podcasts/podcasts.component';
+import { Podcast } from '../podcasts/podcasts.component';
 import { CreatorService } from '../service/creator.service';
 
 @Component({

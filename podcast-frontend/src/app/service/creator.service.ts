@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { User } from '../podcasts/podcasts.component';
+import { Podcast, User } from '../podcasts/podcasts.component';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +19,7 @@ export class CreatorService {
     );
   }
 
-  getPodcastsByCreator(username: string): Observable<User[]> {
+  getPodcastsByCreator(username: string): Observable<Podcast[]> {
     const options = username
       ? { params: new HttpParams().set('username', username) }
       : {};

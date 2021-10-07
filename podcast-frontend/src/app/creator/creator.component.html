@@ -1,0 +1,14 @@
+<div class="creator" style="padding: 3%;">
+  <div class="img">
+    <a smooth="true" href="">
+      <img style="border-radius: 50%; margin-left: 14%;" src="https://picsum.photos/1000/1000" width="126" height="126">
+    </a>
+  </div>
+  <div class="host">
+    <div class="creator_name">{{user.fullName}}</div>
+    <div class="host_title">Host</div>
+    <div class="podcast_name" *ngFor="let podcast of createdPodcasts">
+      <span>{{podcast.title}}</span>
+    </div>
+  </div>
+</div>
