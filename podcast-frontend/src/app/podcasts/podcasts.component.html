@@ -11,19 +11,26 @@
     <img class="podcast__img" src="https://picsum.photos/1000/1000" />
   </a>
   <div class="podcast__text">
-    <h1 class="podcast__title"><a [routerLink]="['/episodes',podcast.id]">{{podcast.title}}</a></h1>
-    <div class=" podcast__rating">
-      <span class="fa fa-star checked"></span>
-      <span class="fa fa-star checked"></span>
-      <span class="fa fa-star checked"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
+    <div class="creator">
+      <div>
+        <h1 class="podcast__title"><a [routerLink]="['/episodes',podcast.id]">{{podcast.title}}</a></h1>
+        <div class="podcast__rating">
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star"></span>
+          <span class="fa fa-star"></span>
+        </div>
+        <div class="likes">
+          <span class="px-2"><i class="fa fa-heart"><span class="px-2">{{podcast.likes}}</span></i></span>
+        </div>
+      </div>
+      <div class="creator_img">
+        <img src="https://via.placeholder.com/150" alt=""><br>
+        <span class="creator_name">{{podcast.creator.fullName}}</span>
+      </div>
     </div>
 
-    <span>{{podcast.creator.fullName}}</span>
-    <div class="likes">
-      <span class="px-2"><i class="fa fa-heart"><span class="px-2">{{podcast.likes}}</span></i></span>
-    </div>
 
     <!-- <div class="listenScore">
       <span class="px-2"><i class="fa fa-ear"><span class="px-2">{{podcast.likes}}</span></i> </span>

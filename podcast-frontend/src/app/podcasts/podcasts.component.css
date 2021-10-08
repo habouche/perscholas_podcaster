@@ -48,6 +48,7 @@ a:hover {
 }
 .podcast .podcast__title {
   font-size: 1.75rem;
+  margin-right: 0%;
 }
 .podcast .podcast__img {
   max-height: 180px;
@@ -117,6 +118,27 @@ a:hover {
 }
 .podcast:hover .podcast__bar {
   width: 100px;
+}
+
+.creator {
+  display: flex;
+}
+
+.creator .creator_img {
+  margin-left: 45%;
+  justify-content: right;
+}
+
+.creator .creator_img .creator_name {
+}
+.creator .creator_img > img {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
+
+.creator .podcast__rating {
+  margin-top: 10%;
 }
 @media screen and (min-width: 769px) {
   .podcast {
