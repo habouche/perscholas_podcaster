@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpInterceptorService } from './service/http/http-interceptor.service';
 
@@ -17,6 +17,8 @@ import { CategoriesComponent } from './categories/categories.component';
 import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
 import { CreatorComponent } from './creator/creator.component';
 import { FooterComponent } from './footer/footer.component';
+import { CreatorPodcastsComponent } from './creator-podcasts/creator-podcasts.component';
+import { CreatorPodcastComponent } from './creator-podcast/creator-podcast.component';
 
 @NgModule({
   declarations: [
@@ -32,8 +34,16 @@ import { FooterComponent } from './footer/footer.component';
     SubscriptionsComponent,
     CreatorComponent,
     FooterComponent,
+    CreatorPodcastsComponent,
+    CreatorPodcastComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

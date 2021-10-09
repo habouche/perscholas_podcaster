@@ -8,7 +8,8 @@
 </div>
 <article class="podcast dark" *ngFor="let podcast of podcasts">
   <a class="podcast__img_link">
-    <img class="podcast__img" src="https://picsum.photos/1000/1000" />
+    <img class="podcast__img"
+      src="https://ferhat-perscholas-bucket.s3.us-east-1.amazonaws.com/The_Joe_Rogan_Experience_logo.jpg" />
   </a>
   <div class="podcast__text">
     <div class="creator">
@@ -25,10 +26,10 @@
           <span class="px-2"><i class="fa fa-heart"><span class="px-2">{{podcast.likes}}</span></i></span>
         </div>
       </div>
-      <div class="creator_img">
+      <!-- <div class="creator_img">
         <img src="https://via.placeholder.com/150" alt=""><br>
         <span class="creator_name">{{podcast.creator.fullName}}</span>
-      </div>
+      </div> -->
     </div>
 
 

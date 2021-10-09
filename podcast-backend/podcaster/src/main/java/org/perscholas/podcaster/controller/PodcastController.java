@@ -1,18 +1,26 @@
 package org.perscholas.podcaster.controller;
 
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.perscholas.podcaster.dto.PodcastForm;
 import org.perscholas.podcaster.entity.Episode;
 import org.perscholas.podcaster.entity.Podcast;
-import org.perscholas.podcaster.entity.User;
-import org.perscholas.podcaster.entity.UserRole;
 import org.perscholas.podcaster.repository.EpisodeRepository;
 import org.perscholas.podcaster.repository.PodcastRepository;
 import org.perscholas.podcaster.repository.UserRepository;
+import org.perscholas.podcaster.utils.S3;
+import org.perscholas.podcaster.utils.S3;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.function.EntityResponse;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.xml.stream.events.EntityReference;
+import org.apache.commons.lang3.StringUtils;
+
+
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -29,6 +37,10 @@ public class PodcastController {
     @Autowired
     private PodcastRepository podcastRepository;
 
+   @Autowired
+    private S3 s3;
+
+    //User
 
     @GetMapping("/user/podcasts")
     @ResponseBody
@@ -68,21 +80,6 @@ public class PodcastController {
         return episodeRepository.findByPodcastId(Integer.parseInt(id));
     }
 
-    @GetMapping("/")
-    public String signin() {
-
-        return "Auth Attempt";
-    }
-
-    /*@RequestMapping("/userRoles/{username}")
-    @ResponseBody
-    public User hello2(@PathVariable String username) {
-
-        return userRepository.findByUserName(username);
-        //user.getPodcasts().stream().forEach(System.out::println);
-         //user.getUserRoles();
-    }*/
-
     @RequestMapping("/podcast/{id}")
     @ResponseBody
     public Optional<Podcast> add(@PathVariable Integer id) {
@@ -98,6 +95,34 @@ public class PodcastController {
     }
 
 
+    //Creator
+
+    //@RequestParam("file") MultipartFile file, @RequestParam("title") String title, @RequestParam("description") String description
+   @PostMapping(value = "/creator/podcast/add",consumes = { "multipart/form-data" })
+    public ResponseEntity addPodcast(@ModelAttribute PodcastForm podcastForm) throws IOException {
+        System.out.println("File size = " + podcastForm.getImage().getSize() );
+        System.out.println("File name = " + podcastForm.getImage().getOriginalFilename());
+        System.out.println("title      = " + podcastForm.getTitle() );
+        System.out.println("desc      = " + podcastForm.getDescription() );
+        System.out.println("usenrname      = " + podcastForm.getUsername() );
+
+        // get the official temp directory from the OS
+        String tmpdir = System.getProperty("java.io.tmpdir");
+        System.out.println("Temp file path: " + tmpdir);
+
+        // create a filename that consists of the full path of the temp dir and the original uploaded file name
+        File targetFile = new File(tmpdir + File.separator + podcastForm.getImage().getOriginalFilename());
+
+        // commons io utility that will stream the uploaded file into the target file.
+        // essenitally saves it to the hard drive.
+        FileUtils.copyInputStreamToFile(podcastForm.getImage().getInputStream(), targetFile);
+
+        // use our S3 libaray to write the file to S3
+        s3.writeFile("ferhat-perscholas-bucket/images", podcastForm.getImage().getOriginalFilename(), targetFile);
+
+
+       return ResponseEntity.ok().build();
+    }
 
 
 }

@@ -1,0 +1,30 @@
+<br>
+<h1>My Podcasts</h1>
+<br>
+<div class="alert alert-success" *ngIf='message'>{{message}}</div>
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Created </th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let podcast of podcasts">
+        <td>{{podcast.title}}</td>
+        <td>{{podcast.description}}</td>
+        <td>{{podcast.dateLaunched | date}}</td>
+        <td><button (click)="updatePodcast(podcast.id)" class="btn btn-success">Update </button></td>
+        <td><button (click)="deletePodcast(podcast.id)" class="btn btn-warning">Delete </button></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="container">
+    <button (click)="addPodcast()" class="btn btn-success">Add a new Podcast </button>
+  </div>
+</div>

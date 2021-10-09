@@ -11,6 +11,8 @@ import { CreatorsComponent } from './creators/creators.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { EpisodesComponent } from './episodes/episodes.component';
 import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
+import { CreatorPodcastComponent } from './creator-podcast/creator-podcast.component';
+import { CreatorPodcastsComponent } from './creator-podcasts/creator-podcasts.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -45,6 +47,19 @@ const routes: Routes = [
     component: SubscriptionsComponent,
     canActivate: [RouteGuardService],
   },
+
+  {
+    path: 'mypodcasts',
+    component: CreatorPodcastsComponent,
+    canActivate: [RouteGuardService],
+  },
+
+  {
+    path: 'myepisodes/:id',
+    component: CreatorPodcastComponent,
+    canActivate: [RouteGuardService],
+  },
+
   {
     path: 'logout',
     component: LogoutComponent,

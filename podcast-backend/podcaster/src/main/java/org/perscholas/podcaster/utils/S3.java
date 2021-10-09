@@ -1,4 +1,4 @@
-package perscholas.aws;
+package org.perscholas.podcaster.utils;
 
 import java.io.File;
 
@@ -34,9 +34,9 @@ public class S3 {
 	public void init() {
 		BasicAWSCredentials cred = new BasicAWSCredentials(amazonAWSAccessKey, amazonAWSSecretKey);
 		AWSStaticCredentialsProvider provider = new AWSStaticCredentialsProvider(cred);
-		
+
 		s3 = AmazonS3ClientBuilder.standard()
-                .withRegion(Regions.US_WEST_1)
+                .withRegion(Regions.US_EAST_1)
                 .withCredentials(provider)
                 .build();
 	}
@@ -53,21 +53,22 @@ public class S3 {
 
 		return !objectListing.getObjectSummaries().isEmpty();
 	}
-	
+
 	// 1 write the file from your multipart uplaod to the OS temp directory
 	// 2 pass the file into S3
 
 	public void writeFile(String bucketPath, String fileName, File fromFile) {
-		
+
 		PutObjectRequest req = new PutObjectRequest(bucketPath, fileName, fromFile);
 		req.withCannedAcl(CannedAccessControlList.PublicRead);
-		
-		
+
+
 		PutObjectResult por = s3.putObject(req);
 		//System.out.println(por);
-		
+
 		System.out.println("File successfully written to S3 at " + bucketPath + "/" + fileName);
-		
+
 	}
 
 }
+

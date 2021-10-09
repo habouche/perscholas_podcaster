@@ -24,7 +24,7 @@ export class EpisodesComponent implements OnInit {
 
   getPodcastById(): void {
     const id = this.route.snapshot.params.podcast;
-    this.podcastService.getAPodcastById(id).subscribe(
+    this.podcastService.getPodcastById(id).subscribe(
       (response) => {
         this.podcast = response;
       },
@@ -36,7 +36,7 @@ export class EpisodesComponent implements OnInit {
 
   getEpisodesByPodcastId(): void {
     const id = this.route.snapshot.params.podcast;
-    this.podcastService.getAPodcastEpisodesById(id).subscribe(
+    this.podcastService.getPodcastEpisodesById(id).subscribe(
       (response) => {
         this.episodes = response;
       },

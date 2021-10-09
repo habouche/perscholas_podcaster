@@ -1,0 +1,63 @@
+<br>
+<h1>Add/Update a podcast</h1>
+<br>
+<!-- <div class="container">
+  <div class="alert alert-warning" *ngIf="myPodcastForm.dirty && myPodcastForm.invalid ">Enter valid Podcast information
+  </div>
+  <div class="alert alert-warning" *ngIf="myPodcastForm.dirty && description.invalid ">Enter valid Description</div>
+  <div class="alert alert-warning" *ngIf="myPodcastForm.dirty && title.invalid ">Enter valid Description</div>
+
+  <form (ngSubmit)="!myPodcastForm.invalid && savePodcast()" #myPodcastForm="ngForm" enctype="multipart/form-data">
+    <fieldset class=" form-group">
+      <label>Title</label>
+      <input type="text" #title="ngModel" minlength="5" [(ngModel)]='podcast.title' class="form-control" name="title"
+        id="" required="required">
+    </fieldset>
+    <fieldset class="form-group">
+      <label>Description</label>
+      <textarea type="text" #description="ngModel" minlength="5" [(ngModel)]='podcast.description' class="form-control"
+        name="description" id="" required="required">
+      </textarea>
+    </fieldset>
+
+    {{podcast.title}}
+
+    <fieldset class="form-group">
+      <label>Image</label>
+      <input type="file" #image="ngModel" [(ngModel)]='podcastForm.image' class="form-control" name="image" id="">
+    </fieldset>
+
+    <button type="submit" class="btn btn-success">Save </button>
+  </form>
+
+</div> -->
+
+<div class="container">
+
+  <form [formGroup]="uploadForm" (ngSubmit)="savePodcast()">
+
+    <fieldset class=" form-group">
+      <label>Title</label>
+      <input type="text" minlength="5" [(ngModel)]='podcast.title' class="form-control"
+        [ngModelOptions]="{standalone: true}" name="title" id="" required="required">
+    </fieldset>
+
+    <fieldset class="form-group">
+      <label>Description</label>
+      <textarea type="text" minlength="5" [(ngModel)]='podcast.description' [ngModelOptions]="{standalone: true}"
+        class="form-control" name="description" id="" required="required">
+        </textarea>
+    </fieldset>
+
+    {{podcast.title}}
+    {{podcast.description}}
+
+    <fieldset class="form-group">
+      <label>Image</label>
+      <input type="file" class="form-control" name="image" id="" (change)="onFileSelect($event)">
+    </fieldset>
+
+    <button type=" submit" class="btn btn-success">Save </button>
+  </form>
+
+</div>

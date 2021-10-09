@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Episode, Podcast } from '../podcasts/podcasts.component';
 import { map } from 'rxjs/operators';
+import { PodcastFrom } from '../creator-podcast/creator-podcast.component';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,7 @@ export class PodcastService {
     );
   }
 
-  getAPodcastById(podcastiId: any): Observable<Podcast> {
+  getPodcastById(podcastiId: any): Observable<Podcast> {
     const options = podcastiId
       ? { params: new HttpParams().set('id', podcastiId) }
       : {};
@@ -31,7 +32,7 @@ export class PodcastService {
       );
   }
 
-  getAPodcastEpisodesById(podcastiId: string): Observable<Episode[]> {
+  getPodcastEpisodesById(podcastiId: string): Observable<Episode[]> {
     const options = podcastiId
       ? { params: new HttpParams().set('id', podcastiId) }
       : {};
@@ -57,4 +58,32 @@ export class PodcastService {
         })
       );
   }
+
+  // Podcast CRUD Operations
+
+  updatePodcast(arg0: string, id: number, podcast: Podcast): Observable<any> {
+    throw new Error('Method not implemented.');
+  }
+
+  createPodcast(podcastForm: any): Observable<any> {
+    // const options = username
+    //   ? { params: new HttpParams().set('username', username) }
+    //   : {};
+    return this.http
+      .post<any>(
+        'http://localhost:8080/creator/podcast/add',
+
+        podcastForm
+      )
+      .pipe(
+        map((response) => {
+          console.log('data:' + JSON.stringify(response));
+          return response;
+        })
+      );
+  }
+
+  // deleteTodo(id: any) {
+  //   throw new Error('Method not implemented.');
+  // }
 }

@@ -8,7 +8,7 @@
     <div class="creator_name">{{user.fullName}}</div>
     <div class="host_title">Host</div>
     <div class="podcast_name" *ngFor="let podcast of createdPodcasts">
-      <span>{{podcast.title}}</span>
+      <a [routerLink]="['/episodes',podcast.id]"><span>{{podcast.title}}</span></a>
     </div>
   </div>
 </div>
