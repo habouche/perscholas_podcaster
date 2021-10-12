@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -53,6 +53,20 @@ export class HardcodedAuthenticationService {
     if (this.getAuthenticatedUser()) {
       return sessionStorage.getItem('token');
     }
+  }
+
+  isCreator(): Observable<boolean> {
+    const options = {
+      params: new HttpParams().set('username', this.getAuthenticatedUser()),
+    };
+    return this.http
+      .get<boolean>('http://localhost:8080/user/isCreator', options)
+      .pipe(
+        map((response) => {
+          console.log('response in service :' + response);
+          return response;
+        })
+      );
   }
 
   isUserLoggedIn(): boolean {

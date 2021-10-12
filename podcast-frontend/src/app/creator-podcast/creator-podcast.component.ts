@@ -74,7 +74,6 @@ export class CreatorPodcastComponent implements OnInit {
         );
     } else {
       this.podcastService.createPodcast(this.createForm()).subscribe((data) => {
-        console.log(data);
         this.router.navigate(['mypodcasts']);
       });
     }

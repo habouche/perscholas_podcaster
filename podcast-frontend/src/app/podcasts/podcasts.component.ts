@@ -3,6 +3,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { HardcodedAuthenticationService } from '../service/hardcoded-authentication.service';
 import { PodcastService } from '../service/podcast.service';
 import { SearchService } from '../service/data/search.service';
+import { first, shareReplay, take, map } from 'rxjs/operators';
+import { HttpHeaders, HttpParams } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 
 export class User {
   constructor(
@@ -80,8 +83,6 @@ export class PodcastsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.getAllPodcasts();
-    console.log(this.context);
     this.searchService.currentMessage.subscribe((message) => {
       this.searchWord = message;
       if (this.searchWord.length === 0) {
@@ -107,7 +108,6 @@ export class PodcastsComponent implements OnInit {
   }
 
   searchPodcasts(): void {
-    console.log('search called');
     this.podcastService.searchPodcasts(this.searchWord).subscribe(
       (response) => {
         console.log(JSON.stringify(response));
@@ -117,5 +117,9 @@ export class PodcastsComponent implements OnInit {
         console.log(JSON.stringify(error));
       }
     );
+  }
+
+  subscribe(): void {
+    console.log('from subscribe method');
   }
 }

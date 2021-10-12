@@ -21,7 +21,6 @@ export class CreatorComponent implements OnInit {
     this.creatorService.getPodcastsByCreator(this.user.userName).subscribe(
       (response) => {
         this.createdPodcasts = response;
-        console.log('user: ' + JSON.stringify(this.createdPodcasts));
       },
       (error) => {
         console.log(JSON.stringify(error));

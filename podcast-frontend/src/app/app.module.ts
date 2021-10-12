@@ -19,6 +19,7 @@ import { CreatorComponent } from './creator/creator.component';
 import { FooterComponent } from './footer/footer.component';
 import { CreatorPodcastsComponent } from './creator-podcasts/creator-podcasts.component';
 import { CreatorPodcastComponent } from './creator-podcast/creator-podcast.component';
+import { PodcastComponent } from './podcast/podcast.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { CreatorPodcastComponent } from './creator-podcast/creator-podcast.compo
     FooterComponent,
     CreatorPodcastsComponent,
     CreatorPodcastComponent,
+    PodcastComponent,
   ],
   imports: [
     BrowserModule,

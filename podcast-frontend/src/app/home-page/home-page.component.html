@@ -12,8 +12,9 @@
             routerLink="/categories">Categories</a></li>
         <li class="nav-item"><a class="nav-link" *ngIf="hardcodedAuthenticationService.isUserLoggedIn()"
             routerLink="/creators">Creators</a></li>
-        <li class="nav-item"><a class="nav-link" *ngIf="hardcodedAuthenticationService.isUserLoggedIn()"
-            routerLink="/playlists">PlayLists</a></li>
+        <li class="nav-item"><a class="nav-link"
+            *ngIf="hardcodedAuthenticationService.isUserLoggedIn() &&  isUserACreator"
+            routerLink="/mypodcasts">MyPodcasts</a></li>
       </ul>
     </div>
 
@@ -27,7 +28,8 @@
 
     <ul class="navbar-nav navbar-collapse justify-content-end">
 
-      <li><a class="nav-link" *ngIf="hardcodedAuthenticationService.isUserLoggedIn()" routerLink="/account">Account</a>
+      <li><a class="nav-link" *ngIf="hardcodedAuthenticationService.isUserLoggedIn()"
+          routerLink="/account">{{hardcodedAuthenticationService.getAuthenticatedUser()}}</a>
       </li>
       <li><a class="nav-link" *ngIf="!hardcodedAuthenticationService.isUserLoggedIn()" routerLink="/login">Login</a>
       </li>

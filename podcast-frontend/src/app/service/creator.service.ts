@@ -13,7 +13,6 @@ export class CreatorService {
   getCreators(): Observable<User[]> {
     return this.http.get<any>('http://localhost:8080/user/creators').pipe(
       map((response) => {
-        console.log('creators:' + JSON.stringify(response));
         return response;
       })
     );
@@ -27,7 +26,6 @@ export class CreatorService {
       .get<any>('http://localhost:8080/user/creator/podcasts', options)
       .pipe(
         map((response) => {
-          console.log('podcasts:' + JSON.stringify(response));
           return response;
         })
       );

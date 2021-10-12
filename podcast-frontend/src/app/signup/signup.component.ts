@@ -37,12 +37,8 @@ export class SignupComponent implements OnInit {
   }
 
   regiter(): void {
-    console.log('form data' + JSON.stringify(this.signupFrom));
-
     this.hardcodedAuthentificationService.register(this.signupFrom).subscribe(
       (response) => {
-        console.log('data:' + JSON.stringify(response));
-        // sessionStorage.setItem('authenticatedUser', this.username);
         this.route.navigate(['podcasts']);
         this.signUpError = false;
       },

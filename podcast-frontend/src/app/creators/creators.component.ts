@@ -28,7 +28,6 @@ export class CreatorsComponent implements OnInit {
             this.getCreators();
           } else {
             this.users = response;
-            console.log('user: ' + JSON.stringify(this.users));
           }
         }
       },
@@ -42,7 +41,6 @@ export class CreatorsComponent implements OnInit {
     this.creatorService.getCreators().subscribe(
       (response) => {
         this.users = response;
-        console.log('user: ' + JSON.stringify(this.users));
       },
       (error) => {
         console.log(JSON.stringify(error));

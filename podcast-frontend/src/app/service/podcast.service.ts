@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Episode, Podcast } from '../podcasts/podcasts.component';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { PodcastFrom } from '../creator-podcast/creator-podcast.component';
 
 @Injectable({
@@ -17,6 +17,22 @@ export class PodcastService {
         return response;
       })
     );
+  }
+
+  subscribeToPodcast(id: number, username: string): Observable<any> {
+    const formData = new FormData();
+    formData.append('id', id.toString());
+    formData.append('username', username);
+    const sub = { id, username };
+    console.log(JSON.stringify(sub));
+    return this.http
+      .post<any>('http://localhost:8080/user/subscribe', formData)
+      .pipe(
+        map((data) => {
+          console.log('data:' + JSON.stringify(data));
+          return data;
+        })
+      );
   }
 
   getPodcastById(podcastiId: any): Observable<Podcast> {
@@ -59,6 +75,26 @@ export class PodcastService {
       );
   }
 
+  isSubscribed(id: string): Observable<boolean> {
+    const options = id
+      ? {
+          params: new HttpParams()
+            .set('id', id)
+            .set('username', sessionStorage.getItem('authenticatedUser')),
+        }
+      : {};
+    return this.http.get<boolean>(
+      'http://localhost:8080/user/isSubscribed',
+      options
+    );
+    // .pipe(
+    //   map((response) => {
+    //     console.log('callback httpGet');
+    //     return response;
+    //   })
+    // );
+  }
+
   // Podcast CRUD Operations
 
   updatePodcast(arg0: string, id: number, podcast: Podcast): Observable<any> {
@@ -77,7 +113,6 @@ export class PodcastService {
       )
       .pipe(
         map((response) => {
-          console.log('data:' + JSON.stringify(response));
           return response;
         })
       );

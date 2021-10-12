@@ -13,7 +13,6 @@ export class SubscriptionsComponent implements OnInit {
   constructor(private subscriptionService: SubscriptionService) {}
 
   ngOnInit(): void {
-    console.log(sessionStorage.getItem('authenticatedUser'));
     this.getSubscriptions();
   }
 
@@ -23,7 +22,6 @@ export class SubscriptionsComponent implements OnInit {
       .subscribe(
         (response) => {
           this.subscriptions = response;
-          console.log(JSON.stringify(response));
         },
         (error) => {
           console.log(JSON.stringify(error));
