@@ -52,6 +52,10 @@ public class UserService {
         return Optional.ofNullable(creators);
     }
 
-
+    public boolean isCreator(String username){
+        User user = this.userRepository.findByUserName(username);
+        boolean isCreator = user.getUserRoles().stream().anyMatch(userRole -> userRole.getUserRole().equals("CREATOR"));
+        return isCreator;
+    }
 
 }

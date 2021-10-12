@@ -7,6 +7,7 @@ import org.perscholas.podcaster.repository.EpisodeRepository;
 import org.perscholas.podcaster.repository.PodcastRepository;
 import org.perscholas.podcaster.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,7 +39,7 @@ public class SubscriptionController {
         podcast.getUsers().add(user);
         podcastRepository.save(podcast);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @GetMapping("/subscriptions")
@@ -50,4 +51,20 @@ public class SubscriptionController {
                         .getPodcasts());
     }
 
+    @GetMapping("/isSubscribed")
+    @ResponseBody
+    public boolean isSubscribed(@RequestParam String username,@RequestParam Integer id){
+        System.out.println("From isSubscribed -     username:" +username + " Id: " +id);
+        boolean user = userRepository
+                .findByUserName(username) != null;
+
+        boolean isSubscribed = false;
+        if(user) {
+            isSubscribed = this.userRepository.findByUserName(username).getPodcasts()
+                    .stream().anyMatch(podcast -> podcast.getId().equals(id));
+
+        }
+        System.out.println("isSubscribed:" +isSubscribed);
+        return  isSubscribed;
+    }
 }
