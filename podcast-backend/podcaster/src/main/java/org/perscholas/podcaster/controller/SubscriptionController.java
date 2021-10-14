@@ -42,6 +42,15 @@ public class SubscriptionController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    @PostMapping("/unsubscribe")
+    @ResponseBody
+    public ResponseEntity unSubscribe(@RequestParam String username,@RequestParam Integer id ) {
+
+        // TODO implement unsubscribe method
+
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
     @GetMapping("/subscriptions")
     @ResponseBody
     public Optional<List<Podcast>> getSubscriptions(@RequestParam String username){

@@ -6,9 +6,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.perscholas.podcaster.dto.PodcastForm;
 import org.perscholas.podcaster.entity.Episode;
 import org.perscholas.podcaster.entity.Podcast;
+import org.perscholas.podcaster.entity.Rating;
 import org.perscholas.podcaster.repository.EpisodeRepository;
 import org.perscholas.podcaster.repository.PodcastRepository;
 import org.perscholas.podcaster.repository.UserRepository;
+import org.perscholas.podcaster.service.PodcastService;
 import org.perscholas.podcaster.utils.S3;
 import org.perscholas.podcaster.utils.S3;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalDouble;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 public class PodcastController {
@@ -36,6 +40,9 @@ public class PodcastController {
 
     @Autowired
     private PodcastRepository podcastRepository;
+
+    @Autowired
+    private PodcastService podcastService;
 
    @Autowired
     private S3 s3;
@@ -62,7 +69,6 @@ public class PodcastController {
 
         return this.userRepository.findByUserName(username).getCreatedPodcasts();
     }
-
 
     @GetMapping("/user/podcasts/search")
     @ResponseBody
@@ -119,7 +125,7 @@ public class PodcastController {
 
         // use our S3 libaray to write the file to S3
         s3.writeFile("ferhat-perscholas-bucket/images", podcastForm.getImage().getOriginalFilename(), targetFile);
-
+        this.podcastService.addPodcast(podcastForm);
 
        return ResponseEntity.ok().build();
     }

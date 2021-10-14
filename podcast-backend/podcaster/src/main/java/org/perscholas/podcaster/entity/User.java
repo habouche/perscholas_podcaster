@@ -52,6 +52,14 @@ public class User {
     @ManyToMany(mappedBy = "users")
     private List<Podcast> podcasts;
 
+    @JsonIgnore
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private Set<Rating> ratings = new HashSet<>();
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

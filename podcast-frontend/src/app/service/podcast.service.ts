@@ -19,6 +19,30 @@ export class PodcastService {
     );
   }
 
+  getAvergaeRating(id: any): Observable<number> {
+    const options = id ? { params: new HttpParams().set('id', id) } : {};
+    return this.http
+      .get<any>('http://localhost:8080/user/podcast/rating', options)
+      .pipe(
+        map((response) => {
+          return response;
+        })
+      );
+  }
+
+  getMyRating(id: any, username: string): Observable<number> {
+    const options = id
+      ? { params: new HttpParams().set('id', id).set('username', username) }
+      : {};
+    return this.http
+      .get<any>('http://localhost:8080/user/rating', options)
+      .pipe(
+        map((response) => {
+          return response;
+        })
+      );
+  }
+
   subscribeToPodcast(id: number, username: string): Observable<any> {
     const formData = new FormData();
     formData.append('id', id.toString());
@@ -27,6 +51,22 @@ export class PodcastService {
     console.log(JSON.stringify(sub));
     return this.http
       .post<any>('http://localhost:8080/user/subscribe', formData)
+      .pipe(
+        map((data) => {
+          console.log('data:' + JSON.stringify(data));
+          return data;
+        })
+      );
+  }
+
+  unsubscribeFromPodcast(id: number, username: string): Observable<any> {
+    const formData = new FormData();
+    formData.append('id', id.toString());
+    formData.append('username', username);
+    const sub = { id, username };
+    console.log(JSON.stringify(sub));
+    return this.http
+      .post<any>('http://localhost:8080/user/unSubscribe', formData)
       .pipe(
         map((data) => {
           console.log('data:' + JSON.stringify(data));

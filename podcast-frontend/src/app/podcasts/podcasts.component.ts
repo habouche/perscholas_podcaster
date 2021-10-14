@@ -6,6 +6,7 @@ import { SearchService } from '../service/data/search.service';
 import { first, shareReplay, take, map } from 'rxjs/operators';
 import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 export class User {
   constructor(
@@ -76,24 +77,52 @@ export class PodcastsComponent implements OnInit {
   searchWord: string;
   @Input() podcasts: Podcast[];
   text: string;
+  categoryParameter: string;
   constructor(
     private podcastService: PodcastService,
-    private httpClient: HttpClient,
+    private route: ActivatedRoute,
     private searchService: SearchService
   ) {}
 
   ngOnInit(): void {
+    this.categoryParameter = this.route.snapshot.params.category;
+    if (this.categoryParameter != null) {
+      this.context = 'categories';
+    }
+    // this.getAllPodcasts();
+    // console.log('category : ' + this.categoryParameter);
     this.searchService.currentMessage.subscribe((message) => {
       this.searchWord = message;
       if (this.searchWord.length === 0) {
         if (this.context === 'podcasts') {
           this.getAllPodcasts();
-        } else {
+          console.log('loaded podcasts 1:' + this.podcasts);
+        } else if (this.categoryParameter != null) {
+          console.log('category : ' + this.categoryParameter);
+          this.getAllPodcasts();
+          setTimeout(() => {
+            this.podcasts = this.filterPodcasts(this.podcasts);
+          }, 2000);
         }
       } else {
         this.searchPodcasts();
       }
     });
+  }
+
+  sleep(ms): Promise<any> {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  filterPodcasts(podcasts: any): Podcast[] {
+    if (podcasts.length > 0) {
+      console.log(JSON.stringify(podcasts));
+      return podcasts.filter((podcast) => {
+        return podcast.categories.some((cat) => {
+          return cat.category === this.categoryParameter;
+        });
+      });
+    }
   }
 
   getAllPodcasts(): void {

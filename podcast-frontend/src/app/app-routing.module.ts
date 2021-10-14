@@ -23,6 +23,11 @@ const routes: Routes = [
     canActivate: [RouteGuardService],
   },
   {
+    path: 'podcasts/:category',
+    component: PodcastsComponent,
+    canActivate: [RouteGuardService],
+  },
+  {
     path: 'creators',
     component: CreatorsComponent,
     canActivate: [RouteGuardService],

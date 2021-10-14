@@ -63,7 +63,7 @@ export class HardcodedAuthenticationService {
       .get<boolean>('http://localhost:8080/user/isCreator', options)
       .pipe(
         map((response) => {
-          console.log('response in service :' + response);
+          // console.log('response in service :' + response);
           return response;
         })
       );

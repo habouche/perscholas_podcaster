@@ -29,7 +29,7 @@ export class HomePageComponent implements OnInit {
 
     this.isUserACreator$.subscribe(
       (response) => {
-        console.log('response in component:' + response);
+        // console.log('response in component:' + response);
         this.isUserACreator = response;
       },
       (error) => {

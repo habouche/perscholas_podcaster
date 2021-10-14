@@ -24,25 +24,29 @@ public class PodcastService {
     @Autowired
     private PodcastRepository podcastRepository;
 
-    public ResponseEntity<Optional> addPodcast(PodcastForm podcastForm, String username) {
+    public ResponseEntity<Optional> addPodcast(PodcastForm podcastForm) {
         System.out.println("podcastFrom :" + podcastForm);
-        //Retrieve creator
-        User creator = this.userRepository.findByUserName(username);
 
+        //Retrieve creator
+        User creator = this.userRepository.findByUserName(podcastForm.getUsername());
         //Create a new podcast
         Podcast podcast = new Podcast();
         podcast.setTitle(podcastForm.getTitle());
         podcast.setDescription(podcastForm.getDescription());
         podcast.setDateLaunched(LocalDate.now());
-        //podcast.setImageLink(podcastForm.getImage());
-
-
+        podcast.setImageLink(podcastForm.getImage().getOriginalFilename());
+        podcast.setLikes(0);
+        podcast.setListenScore(0);
+        podcast.setLanguage("English");
+        podcast.setLastUpdated(LocalDate.now());
         podcast.setCreator(creator);
-
+        /*//Add to user
+        //creator.getCreatedPodcasts().add(podcast);
+        this.userRepository.save(creator);*/
+        // Persist podcast
+        this.podcastRepository.save(podcast);
         return ResponseEntity.ok().build();
-
     }
-
 }
 
 

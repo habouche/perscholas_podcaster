@@ -64,6 +64,15 @@ public class Podcast {
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users;
 
+    @JsonIgnore
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,
+            mappedBy = "podcast"
+    )
+    private Set<Rating> ratings = new HashSet<>();
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

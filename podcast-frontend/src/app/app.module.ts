@@ -1,8 +1,10 @@
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpInterceptorService } from './service/http/http-interceptor.service';
+import { AngMusicPlayerModule } from 'ang-music-player';
+import { CommonModule } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
@@ -20,6 +22,7 @@ import { FooterComponent } from './footer/footer.component';
 import { CreatorPodcastsComponent } from './creator-podcasts/creator-podcasts.component';
 import { CreatorPodcastComponent } from './creator-podcast/creator-podcast.component';
 import { PodcastComponent } from './podcast/podcast.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -45,6 +48,9 @@ import { PodcastComponent } from './podcast/podcast.component';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    AngMusicPlayerModule,
+    CommonModule,
+    NgbModule,
   ],
   providers: [
     {
@@ -54,5 +60,6 @@ import { PodcastComponent } from './podcast/podcast.component';
     },
   ],
   bootstrap: [AppComponent],
+  schemas: [NO_ERRORS_SCHEMA],
 })
 export class AppModule {}

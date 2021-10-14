@@ -1,21 +1,32 @@
 <article class="podcast dark">
   <a class="podcast__img_link">
     <img class="podcast__img"
-      src="https://ferhat-perscholas-bucket.s3.us-east-1.amazonaws.com/The_Joe_Rogan_Experience_logo.jpg" />
+      src="https://ferhat-perscholas-bucket.s3.us-east-1.amazonaws.com/images/{{podcast.imageLink}}" />
   </a>
   <div class="podcast__text">
     <div class="creator">
       <div>
-        <h1 class="podcast__title"><a [routerLink]="['/episodes',podcast.id]">{{podcast.title}}</a></h1>
-        <div class="podcast__rating">
+        <h1 class="podcast__title"><a [routerLink]="['/episodes',podcast.id]">{{podcast.title}} </a></h1>
+        <!-- <div class="podcast__rating">
           <span class="fa fa-star checked"></span>
           <span class="fa fa-star checked"></span>
           <span class="fa fa-star checked"></span>
           <span class="fa fa-star"></span>
           <span class="fa fa-star"></span>
-        </div>
+        </div> -->
+        <ngb-rating [(rate)]="averageRate" [readonly]="true" [max]="5">
+          <ng-template let-fill="fill" let-index="index">
+            <span class="star" (click)="open(content)" [class.filled]="fill === 100"
+              [class.bad]="index < 3">&#9733;</span>
+          </ng-template>
+        </ngb-rating>
+        <pre style="color: white;">Average Rate: <b>{{averageRate}}</b></pre>
+        <!-- <span><button
+            class="btn  btn-outline-primary">Rate</button></span> -->
+
         <div class="likes">
-          <span class="px-2"><i class="fa fa-heart"><span class="px-2">{{podcast.likes}}</span></i></span>
+          <span class="px-2"><i [ngClass]="likedClass" (click)="setActiveLikedClass()" class="fa fa-heart"><span
+                class="px-2">{{podcast.likes}}</span></i></span>
         </div>
       </div>
       <!-- <div class="creator_img">
@@ -26,8 +37,8 @@
 
 
     <!-- <div class="listenScore">
-        <span class="px-2"><i class="fa fa-ear"><span class="px-2">{{podcast.likes}}</span></i> </span>
-      </div> -->
+      <span class="px-2"><i class="fa fa-ear"><span class="px-2">{{podcast.listenScore}}</span></i> </span>
+    </div> -->
 
     <div class="podcast__bar"></div>
     <div class="podcast__preview-txt">{{podcast.description}}
@@ -39,10 +50,39 @@
         <a [routerLink]="['/podcasts',category.category]"><i class="fa fa-tag mr-2"></i>{{category.category}}</a>
       </li>
 
-      <li *ngIf="!isSubscribedTo" class="tag__item" style="background-color: #EA035C">
+      <li *ngIf="!isSubscribedTo; else unsubscribe" class="tag__item" style="background-color: #EA035C">
         <a [routerLink]="[]" (click)="subscribe()">Subscribe
         </a>
       </li>
+
+      <ng-template #unsubscribe>
+        <li class="tag__item" style="background-color: black">
+          <a [routerLink]="[]" (click)="subscribe()">Unsubscribe
+          </a>
+        </li>
+      </ng-template>
+
     </ul>
   </div>
 </article>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Rate this podcast :</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <ngb-rating [(rate)]="myRate" [max]="5">
+      <ng-template let-fill="fill" let-index="index">
+        <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3">&#9733;</span>
+      </ng-template>
+    </ngb-rating>
+    <pre style="color: black;">Your Rate: <b>{{myRate}}</b></pre>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
+    <button type="button" class="btn btn-outline-dark" (click)="save()">Save</button>
+  </div>
+</ng-template>

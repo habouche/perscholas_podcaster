@@ -4,7 +4,7 @@
       <a class="" href="">
         <img class="podcast__img" style="max-width: 100%;
         height: 230px;
-        " src="https://picsum.photos/1000/1000" />
+        " src="https://ferhat-perscholas-bucket.s3.us-east-1.amazonaws.com/images/{{podcast.imageLink}}" />
       </a>
     </div>
     <div class="col-lg-5 text-center py-4">
@@ -17,7 +17,8 @@
   <div class="h1 text-center text-white p-4 dark">Latest Episodes</div>
   <article class="episode dark blue" *ngFor="let episode of episodes">
     <a class="episode__img_link">
-      <img class="episode__img" src="https://picsum.photos/1000/1000" alt="Image Title" />
+      <img class="episode__img" src="https://ferhat-perscholas-bucket.s3.us-east-1.amazonaws.com/images/podcast.jpg"
+        alt="Image Title" />
     </a>
     <div class="episode__text">
       <h1 class="episode__title blue"><a href="#">{{episode.title}}</a></h1>
@@ -35,7 +36,40 @@
         <li class="tag__item ">
           <a href="#"><i class="fa fa-play mr-2"></i>Play Episode</a>
         </li>
+        <!-- <button type="button" class="btn btn-outline-primary" (click)="collapse.toggle()"
+          [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+          Toggle
+        </button>
+        <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+
+          <ang-music-player [playEvent]="play()" [audioList]="audioList"></ang-music-player>
+
+        </div> -->
       </ul>
     </div>
+    <br><br>
   </article>
 </div>
+
+<div style="margin-left: 28%;">
+  <ang-music-player [playEvent]="play()" [audioList]="audioList"></ang-music-player>
+</div>
+<br><br>
+
+
+
+<!-- <ngb-accordion activeIds="">
+  <ngb-panel title="Simple">
+    <ng-template ngbPanelContent>
+      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon
+      officia
+      aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
+      tempor,
+      sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh
+      helvetica,
+      craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
+      occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+      labore sustainable VHS.
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion> -->

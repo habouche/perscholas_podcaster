@@ -3,6 +3,11 @@
 <div class="alert alert-warning" style="align-items: center;" *ngIf="podcasts == null">No Podcasts to display currently
 </div>
 
+<h1 *ngIf="categoryParameter"> {{categoryParameter}} Podcasts :</h1>
+
+<h1 *ngIf="context==='podcasts'"> Latest Podcasts :</h1>
+<h1 *ngIf="context==='subscriptions'"> Your Podcasts Subscriptions:</h1>
+<br>
 <div>
   <ng-container *ngFor="let podcast of podcasts">
     <app-podcast [podcast]="podcast">
