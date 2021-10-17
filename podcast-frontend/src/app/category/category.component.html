@@ -1,0 +1,21 @@
+<div class="">
+  <div class="categories">
+    <div class="categories-img text-center py-4 .bg-primary">
+      <h5 class=" card-title text-uppercase font-roboto">{{category.category}}</h5>
+    </div>
+    <div class=" card-body text-center" style="background-color: #18151f;">
+      <span>{{numberOfPodcasts}} Podcasts</span>
+      <p class="card-text text-secondary">
+        {{category.description}}
+      </p>
+      <ul class="categories__tagbox">
+        <li class="tag__item">
+          <a [routerLink]="['/podcasts',category.category]"><i class="bi bi-arrow-up-circle-fill"></i> Podcasts</a>
+        </li>
+        <!-- <li class="tag__item">
+            <a [routerLink]="['/podcasts',category.category]"><i class="bi bi-arrow-up-circle-fill"></i> Episodes</a>
+          </li> -->
+      </ul>
+    </div>
+  </div>
+</div>

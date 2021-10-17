@@ -1,1 +1,5 @@
+<br><br>
+<div class="alert alert-primary" role="alert" *ngIf="subscriptions.length == 0">
+  Not subscribed to any podcast yet, browse the catalog of podcasts and subscribe to the ones you like
+</div>
 <app-podcasts [podcasts]="subscriptions" [context]="context"></app-podcasts>

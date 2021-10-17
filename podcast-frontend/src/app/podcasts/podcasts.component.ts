@@ -34,7 +34,8 @@ export class PodcastCategory {
   constructor(
     public id: number,
     public category: string,
-    public podcast: Podcast
+    public podcast: Podcast,
+    public description: string
   ) {}
 }
 
@@ -85,7 +86,11 @@ export class PodcastsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.categoryParameter = this.route.snapshot.params.category;
+    this.route.params.subscribe((routeParams) => {
+      this.categoryParameter = routeParams.category;
+      this.searchService.changeMessage('');
+    });
+    // this.categoryParameter = this.route.snapshot.params.category;
     if (this.categoryParameter != null) {
       this.context = 'categories';
     }
@@ -96,9 +101,8 @@ export class PodcastsComponent implements OnInit {
       if (this.searchWord.length === 0) {
         if (this.context === 'podcasts') {
           this.getAllPodcasts();
-          console.log('loaded podcasts 1:' + this.podcasts);
         } else if (this.categoryParameter != null) {
-          console.log('category : ' + this.categoryParameter);
+          // console.log('category : ' + this.categoryParameter);
           this.getAllPodcasts();
           setTimeout(() => {
             this.podcasts = this.filterPodcasts(this.podcasts);
@@ -116,7 +120,7 @@ export class PodcastsComponent implements OnInit {
 
   filterPodcasts(podcasts: any): Podcast[] {
     if (podcasts.length > 0) {
-      console.log(JSON.stringify(podcasts));
+      // console.log(JSON.stringify(podcasts));
       return podcasts.filter((podcast) => {
         return podcast.categories.some((cat) => {
           return cat.category === this.categoryParameter;

@@ -46,7 +46,16 @@ public class SubscriptionController {
     @ResponseBody
     public ResponseEntity unSubscribe(@RequestParam String username,@RequestParam Integer id ) {
 
-        // TODO implement unsubscribe method
+        System.out.println("username:" +username + " Id: " +id);
+        User user = userRepository.findByUserName(username);
+        Podcast podcast = podcastRepository.getById(id);
+        System.out.println("podcast " +podcast);
+        System.out.println("before: " + user.getPodcasts());
+        user.getPodcasts().remove(podcast);
+        System.out.println("after: " + user.getPodcasts());
+        userRepository.save(user);
+        podcast.getUsers().remove(user);
+        podcastRepository.save(podcast);
 
         return ResponseEntity.status(HttpStatus.OK).build();
     }

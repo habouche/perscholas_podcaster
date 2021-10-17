@@ -6,7 +6,7 @@
 <h1 *ngIf="categoryParameter"> {{categoryParameter}} Podcasts :</h1>
 
 <h1 *ngIf="context==='podcasts'"> Latest Podcasts :</h1>
-<h1 *ngIf="context==='subscriptions'"> Your Podcasts Subscriptions:</h1>
+<h3 *ngIf="context==='subscriptions' && podcasts.length > 0"> Your Podcasts Subscriptions:</h3>
 <br>
 <div>
   <ng-container *ngFor="let podcast of podcasts">

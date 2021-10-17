@@ -1,7 +1,6 @@
 package org.perscholas.podcaster.repository;
 
 import org.perscholas.podcaster.entity.Episode;
-import org.perscholas.podcaster.entity.Podcast;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,5 +13,5 @@ public interface EpisodeRepository extends JpaRepository<Episode, Integer> {
     Episode getById(Integer id);
 
     @Query("select e from Episode e where e.podcast.id = :id")
-    List<Episode> findByPodcastId(@Param("id")Integer id);
+    List<Episode> findByPodcastId(@Param("id") Integer id);
 }

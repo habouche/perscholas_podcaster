@@ -66,7 +66,7 @@ export class PodcastService {
     const sub = { id, username };
     console.log(JSON.stringify(sub));
     return this.http
-      .post<any>('http://localhost:8080/user/unSubscribe', formData)
+      .post<any>('http://localhost:8080/user/unsubscribe', formData)
       .pipe(
         map((data) => {
           console.log('data:' + JSON.stringify(data));

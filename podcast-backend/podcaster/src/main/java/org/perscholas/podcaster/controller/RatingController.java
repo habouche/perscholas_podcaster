@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
 import java.util.OptionalDouble;
 import java.util.Set;
 
@@ -38,13 +39,11 @@ public class RatingController {
     @ResponseBody
     public Integer getPodcastRatingsByUser(@RequestParam String username, @RequestParam Integer id) {
 
-        Rating myRating = this.userRepository.findByUserName(username).getRatings().
+        Optional<Rating> myRating = this.userRepository.findByUserName(username).getRatings().
                 stream().filter(rating -> rating.getPodcast().getId().equals(id))
-                .reduce((a, b) -> {
-                    throw new IllegalStateException("Multiple elements: " + a + ", " + b);
-                })
-                .get();
+                .findAny();
         // collect(Collectors.reducing((a, b) -> null));
-        return myRating.getRating();
+
+        return myRating.isPresent() ? myRating.get().getRating() : 0;
     }
 }

@@ -23,6 +23,7 @@ import { CreatorPodcastsComponent } from './creator-podcasts/creator-podcasts.co
 import { CreatorPodcastComponent } from './creator-podcast/creator-podcast.component';
 import { PodcastComponent } from './podcast/podcast.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CategoryComponent } from './category/category.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CreatorPodcastsComponent,
     CreatorPodcastComponent,
     PodcastComponent,
+    CategoryComponent,
   ],
   imports: [
     BrowserModule,

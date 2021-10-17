@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Podcast } from '../podcasts/podcasts.component';
@@ -17,6 +17,8 @@ export class PodcastComponent implements OnInit {
   @Input() podcast: Podcast;
   isSubscribedTo$: Observable<boolean>;
   isSubscribedTo: boolean;
+  @ViewChild('subscribe_confirm') subscribeModal: ElementRef;
+  @ViewChild('unsubscribe_confirm') unSubscribeModal: ElementRef;
 
   likedClass = 'not_liked';
   closeResult = '';
@@ -55,7 +57,7 @@ export class PodcastComponent implements OnInit {
       .getMyRating(this.podcast.id, sessionStorage.getItem('authenticatedUser'))
       .subscribe(
         (response) => {
-          // console.log('response in component:' + response);
+          // console.log('my rating response in component:' + response);
           this.myRate = response;
         },
         (error) => {
@@ -109,9 +111,15 @@ export class PodcastComponent implements OnInit {
     }
   }
 
+  // tslint:disable-next-line:use-lifecycle-interface
+  //   ngAfterViewInit(): void {
+  //     // We can access the TestComponent now that this portion of the view tree has been initiated.
+  //     this.myTestComp.saveTheWorld();
+  // }
+
   subscribe(): void {
-    console.log('from subscribe method');
     if (!this.isSubscribedTo) {
+      console.log('from subscribe method');
       this.podcastService
         .subscribeToPodcast(
           this.podcast.id,
@@ -121,6 +129,9 @@ export class PodcastComponent implements OnInit {
           (response) => {
             // console.log('data:' + JSON.stringify(response));
             this.isSubscribedTo = true;
+            this.modalService.open(this.subscribeModal, {
+              ariaLabelledBy: 'subscribe_confirm',
+            });
             // this.route.navigate(['podcasts']);
           },
           (error) => {
@@ -128,22 +139,27 @@ export class PodcastComponent implements OnInit {
           }
         );
     } else {
-      this.isSubscribedTo = false;
-      // this.podcastService
-      //   .unsubscribeFromPodcast(
-      //     this.podcast.id,
-      //     sessionStorage.getItem('authenticatedUser')
-      //   )
-      //   .subscribe(
-      //     (response) => {
-      //       console.log('data:' + JSON.stringify(response));
-      //       this.isSubscribedTo = false;
-      //       // this.route.navigate(['podcasts']);
-      //     },
-      //     (error) => {
-      //       console.log(JSON.stringify(error));
-      //     }
-      //   );
+      // this.isSubscribedTo = false;
+      console.log('from unsubscribe method');
+      this.podcastService
+        .unsubscribeFromPodcast(
+          this.podcast.id,
+          sessionStorage.getItem('authenticatedUser')
+        )
+        .subscribe(
+          (response) => {
+            console.log('data:' + JSON.stringify(response));
+            this.isSubscribedTo = false;
+            this.modalService.open(this.unSubscribeModal, {
+              ariaLabelledBy: 'unsubscribe_confirm',
+            });
+
+            // this.route.navigate(['podcasts']);
+          },
+          (error) => {
+            console.log(JSON.stringify(error));
+          }
+        );
     }
   }
 }

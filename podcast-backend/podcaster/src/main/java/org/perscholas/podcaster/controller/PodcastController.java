@@ -2,32 +2,24 @@ package org.perscholas.podcaster.controller;
 
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.perscholas.podcaster.dto.PodcastForm;
 import org.perscholas.podcaster.entity.Episode;
 import org.perscholas.podcaster.entity.Podcast;
-import org.perscholas.podcaster.entity.Rating;
 import org.perscholas.podcaster.repository.EpisodeRepository;
 import org.perscholas.podcaster.repository.PodcastRepository;
 import org.perscholas.podcaster.repository.UserRepository;
 import org.perscholas.podcaster.service.PodcastService;
 import org.perscholas.podcaster.utils.S3;
-import org.perscholas.podcaster.utils.S3;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import org.apache.commons.lang3.StringUtils;
 
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-import java.util.OptionalDouble;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @RestController
 public class PodcastController {
@@ -110,7 +102,7 @@ public class PodcastController {
         System.out.println("File name = " + podcastForm.getImage().getOriginalFilename());
         System.out.println("title      = " + podcastForm.getTitle() );
         System.out.println("desc      = " + podcastForm.getDescription() );
-        System.out.println("usenrname      = " + podcastForm.getUsername() );
+        System.out.println("username      = " + podcastForm.getUsername() );
 
         // get the official temp directory from the OS
         String tmpdir = System.getProperty("java.io.tmpdir");
@@ -123,7 +115,7 @@ public class PodcastController {
         // essenitally saves it to the hard drive.
         FileUtils.copyInputStreamToFile(podcastForm.getImage().getInputStream(), targetFile);
 
-        // use our S3 libaray to write the file to S3
+        // use our S3 library to write the file to S3
         s3.writeFile("ferhat-perscholas-bucket/images", podcastForm.getImage().getOriginalFilename(), targetFile);
         this.podcastService.addPodcast(podcastForm);
 

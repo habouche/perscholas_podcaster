@@ -16,7 +16,7 @@
         </div> -->
         <ngb-rating [(rate)]="averageRate" [readonly]="true" [max]="5">
           <ng-template let-fill="fill" let-index="index">
-            <span class="star" (click)="open(content)" [class.filled]="fill === 100"
+            <span class="star" (click)="open(content,'modal-basic-title')" [class.filled]="fill === 100"
               [class.bad]="index < 3">&#9733;</span>
           </ng-template>
         </ngb-rating>
@@ -45,23 +45,19 @@
     </div>
     <div class="podcast__bar2"></div>
     <ul class="podcast__tagbox">
-
       <li class="tag__item" *ngFor="let category of podcast.categories">
         <a [routerLink]="['/podcasts',category.category]"><i class="fa fa-tag mr-2"></i>{{category.category}}</a>
       </li>
-
       <li *ngIf="!isSubscribedTo; else unsubscribe" class="tag__item" style="background-color: #EA035C">
         <a [routerLink]="[]" (click)="subscribe()">Subscribe
         </a>
       </li>
-
       <ng-template #unsubscribe>
         <li class="tag__item" style="background-color: black">
           <a [routerLink]="[]" (click)="subscribe()">Unsubscribe
           </a>
         </li>
       </ng-template>
-
     </ul>
   </div>
 </article>
@@ -83,6 +79,38 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
-    <button type="button" class="btn btn-outline-dark" (click)="save()">Save</button>
+    <button type="button" class="btn btn-outline-dark" (click)="rate()">Save</button>
+  </div>
+</ng-template>
+
+<ng-template #subscribe_confirm let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="subscribe_confirm">Subscripton Confirmation</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class=""> You will now find {{podcast.title}} in your subscriptions</div>
+  </div>
+  <div class="modal-footer">
+
+    <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss('Cross click')">Ok</button>
+  </div>
+</ng-template>
+
+<ng-template #unsubscribe_confirm let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="subscribe_confirm">Unsubscripton Confirmation</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class=""> You are not anymore subscribed to {{podcast.title}} </div>
+  </div>
+  <div class="modal-footer">
+
+    <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss('Cross click')">Ok</button>
   </div>
 </ng-template>

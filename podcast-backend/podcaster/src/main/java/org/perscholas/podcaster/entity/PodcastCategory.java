@@ -18,6 +18,10 @@ public class PodcastCategory {
     @Column(name = "category", length = 45)
     private String category;
 
+    @Lob
+    @Column(name = "description", nullable = false)
+    private String description;
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "podcast_id")
@@ -45,6 +49,14 @@ public class PodcastCategory {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
