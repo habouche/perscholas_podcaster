@@ -43,6 +43,25 @@ export class PodcastService {
       );
   }
 
+  ratePodcast(
+    username: string,
+    podcastId: number,
+    ratingValue: number
+  ): Observable<number> {
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('podcastId', podcastId.toString());
+    formData.append('ratingValue', ratingValue.toString());
+    return this.http
+      .post<any>('http://localhost:8080/user/podcast/rate', formData)
+      .pipe(
+        map((data) => {
+          console.log('average podcast rating:' + JSON.stringify(data));
+          return data;
+        })
+      );
+  }
+
   subscribeToPodcast(id: number, username: string): Observable<any> {
     const formData = new FormData();
     formData.append('id', id.toString());

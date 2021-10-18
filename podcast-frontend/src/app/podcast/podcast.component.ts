@@ -12,7 +12,7 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./podcast.component.css'],
 })
 export class PodcastComponent implements OnInit {
-  myRate = 6;
+  myRate: number;
   averageRate = 3;
   @Input() podcast: Podcast;
   isSubscribedTo$: Observable<boolean>;
@@ -48,8 +48,22 @@ export class PodcastComponent implements OnInit {
   }
 
   rate(): void {
-    this.modalService.dismissAll('Save Click');
-    console.log(this.myRate);
+    this.podcastService
+      .ratePodcast(
+        sessionStorage.getItem('authenticatedUser'),
+        this.podcast.id,
+        this.myRate
+      )
+      .subscribe(
+        (response) => {
+          // console.log('my rating response in component:' + response);
+          this.averageRate = response;
+          this.modalService.dismissAll('Save Click');
+        },
+        (error) => {
+          console.log(JSON.stringify(error));
+        }
+      );
   }
 
   getMyRating(): void {
@@ -110,12 +124,6 @@ export class PodcastComponent implements OnInit {
       this.podcast.likes--;
     }
   }
-
-  // tslint:disable-next-line:use-lifecycle-interface
-  //   ngAfterViewInit(): void {
-  //     // We can access the TestComponent now that this portion of the view tree has been initiated.
-  //     this.myTestComp.saveTheWorld();
-  // }
 
   subscribe(): void {
     if (!this.isSubscribedTo) {
