@@ -24,6 +24,7 @@ import { CreatorPodcastComponent } from './creator-podcast/creator-podcast.compo
 import { PodcastComponent } from './podcast/podcast.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CategoryComponent } from './category/category.component';
+import { CreatorEpisodesComponent } from './creator-episodes/creator-episodes.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { CategoryComponent } from './category/category.component';
     CreatorPodcastComponent,
     PodcastComponent,
     CategoryComponent,
+    CreatorEpisodesComponent,
   ],
   imports: [
     BrowserModule,

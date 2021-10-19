@@ -156,8 +156,15 @@ export class PodcastService {
 
   // Podcast CRUD Operations
 
-  updatePodcast(arg0: string, id: number, podcast: Podcast): Observable<any> {
-    throw new Error('Method not implemented.');
+  updatePodcast(podcastForm: any): Observable<any> {
+    console.log(podcastForm);
+    return this.http
+      .put<any>('http://localhost:8080/creator/podcast/update', podcastForm)
+      .pipe(
+        map((response) => {
+          return response;
+        })
+      );
   }
 
   createPodcast(podcastForm: any): Observable<any> {
@@ -177,7 +184,16 @@ export class PodcastService {
       );
   }
 
-  // deleteTodo(id: any) {
-  //   throw new Error('Method not implemented.');
-  // }
+  deletePodcast(podcastId: any): Observable<any> {
+    const options = podcastId
+      ? { params: new HttpParams().set('podcastId', podcastId) }
+      : {};
+    return this.http
+      .delete<any>('http://localhost:8080/creator/podcast/delete', options)
+      .pipe(
+        map((response) => {
+          return response;
+        })
+      );
+  }
 }

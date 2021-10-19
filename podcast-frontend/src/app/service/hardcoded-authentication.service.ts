@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HardcodedAuthenticationService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private route: Router) {}
 
   API_URL = 'http//:localhost:8080';
 
@@ -77,5 +78,11 @@ export class HardcodedAuthenticationService {
   logout(): void {
     sessionStorage.removeItem('authenticatedUser');
     sessionStorage.removeItem('token');
+    this.route.navigate(['login']);
+  }
+
+  isACreator(): boolean {
+    const isCreator = sessionStorage.getItem('isCreator');
+    return Boolean(JSON.parse(isCreator));
   }
 }

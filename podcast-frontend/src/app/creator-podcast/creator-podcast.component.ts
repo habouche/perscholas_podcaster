@@ -8,6 +8,8 @@ export class PodcastFrom {
   constructor(
     public title: string,
     public description: string,
+    public id: string,
+    public username: string,
     public image: File
   ) {}
 }
@@ -51,36 +53,45 @@ export class CreatorPodcastComponent implements OnInit {
     );
 
     if (this.id === -1) {
+      // add new podcast
     } else {
       this.podcastService
         .getPodcastById(this.id)
-        .subscribe((data) => (this.podcast = data));
+        .subscribe((response) => (this.podcast = response));
     }
   }
 
   savePodcast(): void {
     if (this.id !== -1) {
-      this.podcastService
-        .updatePodcast(
-          sessionStorage.getItem('authenticatedUser'),
-          this.id,
-          this.podcast
-        )
-        .subscribe(
-          (data) => {
-            this.router.navigate(['mypodcasts']);
-          },
-          (error) => {}
-        );
+      this.podcastService.updatePodcast(this.createForm()).subscribe(
+        (response) => {
+          this.router.navigate(['mypodcasts']);
+        },
+        (error) => {}
+      );
     } else {
-      this.podcastService.createPodcast(this.createForm()).subscribe((data) => {
-        this.router.navigate(['mypodcasts']);
-      });
+      this.podcastService
+        .createPodcast(this.createForm())
+        .subscribe((response) => {
+          this.router.navigate(['mypodcasts']);
+        });
     }
   }
 
+  // updateForm(): PodcastFrom {
+  //   const podcastForm = new PodcastFrom(
+  //     this.podcast.title,
+  //     this.podcast.description,
+  //     this.id.toString(),
+  //     sessionStorage.getItem('authenticatedUser'),
+  //     this.uploadForm.get('image').value
+  //   );
+  //   return podcastForm;
+  // }
+
   createForm(): FormData {
     const formData = new FormData();
+    formData.append('id', this.id.toString() ? this.id.toString() : '');
     formData.append('image', this.uploadForm.get('image').value);
     formData.append('title', this.podcast.title);
     formData.append('description', this.podcast.description);

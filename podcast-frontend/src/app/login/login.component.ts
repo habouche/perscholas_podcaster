@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { HardcodedAuthenticationService } from '../service/hardcoded-authentication.service';
 
 @Component({
@@ -13,6 +14,8 @@ export class LoginComponent implements OnInit {
   password = '';
   errorMessage = 'Invalid Credentials';
   invalidLogin = false;
+  isUserACreator: boolean;
+  isUserACreator$: Observable<boolean>;
 
   model: any = {};
 
@@ -33,6 +36,7 @@ export class LoginComponent implements OnInit {
         (response) => {
           console.log('data:' + JSON.stringify(response));
           sessionStorage.setItem('authenticatedUser', this.username);
+          this.isCreator();
           this.route.navigate(['podcasts']);
           this.invalidLogin = false;
         },
@@ -41,5 +45,20 @@ export class LoginComponent implements OnInit {
           this.invalidLogin = true;
         }
       );
+  }
+
+  isCreator(): void {
+    this.isUserACreator$ = this.hardcodedAuthentificationService.isCreator();
+
+    this.isUserACreator$.subscribe(
+      (response) => {
+        // console.log('response in component:' + response);
+        // this.isUserACreator = response;
+        sessionStorage.setItem('isCreator', String(response));
+      },
+      (error) => {
+        console.log(JSON.stringify(error));
+      }
+    );
   }
 }

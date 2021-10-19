@@ -25,17 +25,17 @@ export class HomePageComponent implements OnInit {
     this.searchService.currentMessage.subscribe(
       (message) => (this.searchWord = message)
     );
-    this.isUserACreator$ = this.hardcodedAuthenticationService.isCreator();
+    // this.isUserACreator$ = this.hardcodedAuthenticationService.isCreator();
 
-    this.isUserACreator$.subscribe(
-      (response) => {
-        // console.log('response in component:' + response);
-        this.isUserACreator = response;
-      },
-      (error) => {
-        console.log(JSON.stringify(error));
-      }
-    );
+    // this.isUserACreator$.subscribe(
+    //   (response) => {
+    //     // console.log('response in component:' + response);
+    //     this.isUserACreator = response;
+    //   },
+    //   (error) => {
+    //     console.log(JSON.stringify(error));
+    //   }
+    // );
   }
 
   searchThis(): void {

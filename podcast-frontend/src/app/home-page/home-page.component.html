@@ -13,10 +13,11 @@
         <li class="nav-item"><a class="nav-link" *ngIf="hardcodedAuthenticationService.isUserLoggedIn()"
             routerLink="/creators">Creators</a></li>
         <li class="nav-item"><a class="nav-link"
-            *ngIf="hardcodedAuthenticationService.isUserLoggedIn() &&  isUserACreator"
+            *ngIf="hardcodedAuthenticationService.isACreator() && hardcodedAuthenticationService.isUserLoggedIn() "
             routerLink="/mypodcasts">MyPodcasts</a></li>
       </ul>
     </div>
+
 
     <div class="container justify-content-end">
       <form class="form-inline my-2 my-lg-0" *ngIf="hardcodedAuthenticationService.isUserLoggedIn()">
@@ -38,3 +39,5 @@
     </ul>
   </nav>
 </header>
+
+{{isUserACreator}}

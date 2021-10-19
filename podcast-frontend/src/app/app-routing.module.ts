@@ -13,6 +13,7 @@ import { EpisodesComponent } from './episodes/episodes.component';
 import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
 import { CreatorPodcastComponent } from './creator-podcast/creator-podcast.component';
 import { CreatorPodcastsComponent } from './creator-podcasts/creator-podcasts.component';
+import { CreatorEpisodesComponent } from './creator-episodes/creator-episodes.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -60,8 +61,14 @@ const routes: Routes = [
   },
 
   {
-    path: 'myepisodes/:id',
+    path: 'mypodcast/:id',
     component: CreatorPodcastComponent,
+    canActivate: [RouteGuardService],
+  },
+
+  {
+    path: 'myepisodes/:id',
+    component: CreatorEpisodesComponent,
     canActivate: [RouteGuardService],
   },
 

@@ -1,0 +1,82 @@
+<br>
+<h1>My Episodes</h1>
+<br>
+<div class="alert alert-success" *ngIf='message'>{{message}}</div>
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Created </th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let episode of episodes">
+        <td>{{episode.title}}</td>
+        <td>{{episode.description}}</td>
+        <td>{{episode.pubDate | date}}</td>
+        <td><button disabled (click)="updateEpisode(episode.id)" class="btn btn-success">Update </button></td>
+        <td><button disabled (click)="deleteEpisode(episode.id)" class="btn btn-warning">Delete </button></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="container">
+    <button (click)="open(content)" class="btn btn-success">Publish a new Episode </button>
+  </div>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add new episode:</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form [formGroup]="uploadForm" (ngSubmit)="saveEpisode()" style="margin: 4%;">
+
+    <fieldset class=" form-group">
+      <label>Title</label>
+      <input type="text" class="form-control" formControlName="title" id="title" name="title">
+    </fieldset>
+
+    <div class="alert alert-warning" *ngIf="title.touched && !title.valid">
+      <div [hidden]="!title.errors.required">
+        Title is required
+      </div>
+      <div [hidden]="!title.errors.minlength">
+        Min Length is 10
+      </div>
+    </div>
+
+    <fieldset class="form-group">
+      <label>Description</label>
+      <textarea type="text" class="form-control" formControlName="description" id="description" name="description">
+        </textarea>
+    </fieldset>
+
+    <div class="alert alert-warning" *ngIf="description.touched && !description.valid">
+      <div [hidden]="!description.errors.required">
+        Description is required
+      </div>
+      <div [hidden]="!description.errors.minlength">
+        Min Length is 50 caracters
+      </div>
+    </div>
+
+    <fieldset class="form-group">
+      <label>Audio File</label>
+      <input type="file" class="form-control" id="audio" (change)="onFileSelect($event)" name="audio">
+    </fieldset>
+    {{uploadForm.get('title').value}}
+    <button type="submit" class="btn btn-success" [disabled]="!uploadForm.valid">Save </button>
+
+  </form>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
+    <button type="submit" class="btn btn-outline-dark">Save</button>
+  </div>
+</ng-template>

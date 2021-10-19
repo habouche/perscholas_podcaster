@@ -31,18 +31,18 @@ export class CreatorPodcastsComponent implements OnInit {
       });
   }
 
-  // deletePodcast(id): void {
-  //   this.podcastService.deletePodcast(id).subscribe((response) => {
-  //     this.message = `Delete of Podcast ${id} is susscesful`;
-  //     this.getPodcasts();
-  //   });
-  // }
+  deletePodcast(podcastId): void {
+    this.podcastService.deletePodcast(podcastId).subscribe((response) => {
+      window.alert('Podcast deleted');
+      this.getPodcasts();
+    });
+  }
 
   updatePodcast(id): void {
-    this.router.navigate(['myepisodes', id]);
+    this.router.navigate(['mypodcast', id]);
   }
 
   addPodcast(): void {
-    this.router.navigate(['myepisodes', -1]);
+    this.router.navigate(['mypodcast', -1]);
   }
 }

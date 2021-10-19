@@ -30,11 +30,13 @@
       <div class="episode__bar"></div>
       <div class="episode__preview-txt">{{episode.description}} </div>
       <ul class="episode__tagbox">
-        <li class="tag__item"><i class="fa fa-tag mr-2"></i>Like</li>
+        <li class="tag__item" *ngFor="let category of podcast.categories">
+          <a [routerLink]="['/podcasts',category.category]"><i class="fa fa-tag mr-2"></i>{{category.category}}</a>
+        </li>
         <li class="tag__item"><i class="fa fa-clock-o mr-2"></i>{{episode.audioLengthSec}}</li>
-        <li class="tag__item"><i class="fa fa-plus-circle"></i> Add to playlist</li>
-        <li class="tag__item ">
-          <a href="#"><i class="fa fa-play mr-2"></i>Play Episode</a>
+        <!-- <li class="tag__item"><i class="fa fa-plus-circle"></i> Add to playlist</li> -->
+        <li class="tag__item " style="background-color: #EA035C">
+          <a [routerLink] (click)="playAudio(content,episode)"><i class="fa fa-play mr-2"></i>Play Episode</a>
         </li>
         <!-- <button type="button" class="btn btn-outline-primary" (click)="collapse.toggle()"
           [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
@@ -51,10 +53,11 @@
   </article>
 </div>
 
-<div style="margin-left: 28%;">
-  <ang-music-player [playEvent]="play()" [audioList]="audioList"></ang-music-player>
-</div>
-<br><br>
+<ng-template #content let-modal>
+  <div style="background-color: rgb(0,0,0);">
+    <ang-music-player #musicPlayer [audioList]=audioList></ang-music-player>
+  </div>
+</ng-template>
 
 
 
