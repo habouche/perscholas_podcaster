@@ -41,11 +41,11 @@ public class User {
     @Column(name = "full_name")
     private String fullName;
 
-    @OneToMany(mappedBy = "user",targetEntity = UserRole.class,fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user",targetEntity = UserRole.class,fetch = FetchType.EAGER,cascade = CascadeType.ALL,orphanRemoval = true)
     private List<UserRole> userRoles = new ArrayList<UserRole>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "creator",targetEntity = Podcast.class,fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "creator",targetEntity = Podcast.class,fetch = FetchType.EAGER,cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<Podcast> createdPodcasts = new HashSet<>();
 
     @JsonIgnore
@@ -55,7 +55,7 @@ public class User {
     @JsonIgnore
     @OneToMany(
             mappedBy = "user",
-            cascade = CascadeType.ALL,
+            cascade = {CascadeType.ALL},
             orphanRemoval = true
     )
     private Set<Rating> ratings = new HashSet<>();

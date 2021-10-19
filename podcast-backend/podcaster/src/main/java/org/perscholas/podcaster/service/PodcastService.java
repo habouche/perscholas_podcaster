@@ -47,6 +47,20 @@ public class PodcastService {
         this.podcastRepository.save(podcast);
         return ResponseEntity.ok().build();
     }
+    public ResponseEntity<Optional> updatePodcast(PodcastForm podcastForm) {
+        System.out.println("podcastFrom :" + podcastForm);
+
+        Podcast podcast = this.podcastRepository.getById(Integer.parseInt(podcastForm.getId()));
+        //Update podcast
+        podcast.setTitle(podcastForm.getTitle());
+        podcast.setDescription(podcastForm.getDescription());
+        podcast.setImageLink(podcastForm.getImage().getOriginalFilename());
+        podcast.setLastUpdated(LocalDate.now());
+        this.podcastRepository.save(podcast);
+        return ResponseEntity.ok().build();
+    }
+
+
 }
 
 

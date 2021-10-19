@@ -15,7 +15,9 @@
     </thead>
     <tbody>
       <tr *ngFor="let podcast of podcasts">
-        <td>{{podcast.title}}</td>
+        <a [routerLink]="['/myepisodes',podcast.id]">
+          <td>{{podcast.title}}</td>
+        </a>
         <td>{{podcast.description}}</td>
         <td>{{podcast.dateLaunched | date}}</td>
         <td><button (click)="updatePodcast(podcast.id)" class="btn btn-success">Update </button></td>

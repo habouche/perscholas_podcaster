@@ -10,16 +10,10 @@ import java.util.List;
 @Data
 public class PodcastForm {
 
+    private String id;
     private String username;
     private String title;
     private String description;
-    //private Integer creatorId;
     private MultipartFile image;
-    //private LocalDate dateLaunched;
-    //private LocalDate lastUpdated;
-    //private Integer listenScore;
-    //private Integer likes;
-    //private String language;
-    //private List<String> categories = new ArrayList<>();
 
 }

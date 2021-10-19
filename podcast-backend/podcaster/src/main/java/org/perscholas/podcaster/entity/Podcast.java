@@ -51,14 +51,14 @@ public class Podcast {
     @Column(name = "language", length = 45)
     private String language;
 
-    @OneToMany(mappedBy = "podcast")
+    @OneToMany(mappedBy = "podcast",cascade = CascadeType.ALL)
     private List<Episode> episodes = new ArrayList<Episode>();
 
-    @OneToMany(mappedBy = "podcast",targetEntity = PodcastCategory.class)
+    @OneToMany(mappedBy = "podcast",targetEntity = PodcastCategory.class,cascade = CascadeType.ALL)
     private Set<PodcastCategory> categories = new HashSet<>();
 
     @JsonIgnore
-    @ManyToMany
+    @ManyToMany()
     @JoinTable(name = "subscriptions",
             joinColumns = @JoinColumn(name = "podcast_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
