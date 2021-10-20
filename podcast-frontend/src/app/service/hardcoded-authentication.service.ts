@@ -2,7 +2,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -14,16 +13,12 @@ export class HardcodedAuthenticationService {
   API_URL = 'http//:localhost:8080';
 
   authenticate(username: string, password: string): Observable<any> {
-    // const basicAuthHeaderString =
-    //   'Basic ' + window.btoa(username + ':' + password);
-    // const headers = new HttpHeaders({ Authorization: basicAuthHeaderString });
     const headers = { 'content-type': 'application/json' };
     const login = { username, password };
     return this.http
       .post<any>('http://localhost:8080/authenticate', { username, password })
       .pipe(
         map((data) => {
-          console.log('data:' + JSON.stringify(data));
           sessionStorage.setItem('authenticatedUser', username);
           sessionStorage.setItem('token', `Bearer ${data.token}`);
           return data;
@@ -32,16 +27,10 @@ export class HardcodedAuthenticationService {
   }
 
   register(signUpForm: any): Observable<any> {
-    // const basicAuthHeaderString =
-    //   'Basic ' + window.btoa(username + ':' + password);
-    // const headers = new HttpHeaders({ Authorization: basicAuthHeaderString });
-    // const headers = { 'content-type': 'application/json' };
-    // const login = { username, password };
     return this.http
       .post<any>('http://localhost:8080/register', signUpForm)
       .pipe(
         map((response) => {
-          console.log('data:' + JSON.stringify(response));
           return response;
         })
       );
@@ -64,7 +53,6 @@ export class HardcodedAuthenticationService {
       .get<boolean>('http://localhost:8080/user/isCreator', options)
       .pipe(
         map((response) => {
-          // console.log('response in service :' + response);
           return response;
         })
       );

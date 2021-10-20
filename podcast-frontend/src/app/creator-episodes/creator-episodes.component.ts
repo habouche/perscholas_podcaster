@@ -18,6 +18,7 @@ import { PodcastService } from '../service/podcast.service';
 })
 export class CreatorEpisodesComponent implements OnInit {
   podcastId;
+  toDelete;
   episodes: Episode[];
   message;
   closeResult: string;
@@ -81,6 +82,22 @@ export class CreatorEpisodesComponent implements OnInit {
       );
   }
 
+  // deleteThis(delete, episodeId) :void{}
+
+  deleteThis(content, episodeId): void {
+    this.toDelete = episodeId;
+    this.modalService
+      .open(content, { ariaLabelledBy: 'modal-basic-title' })
+      .result.then(
+        (result) => {
+          this.closeResult = `Closed with: ${result}`;
+        },
+        (reason) => {
+          // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        }
+      );
+  }
+
   createForm(): FormData {
     const formData = new FormData();
     formData.append('audio', this.uploadForm.get('audio').value);
@@ -99,6 +116,17 @@ export class CreatorEpisodesComponent implements OnInit {
 
   saveEpisode(): void {
     this.episodeService.addEpisode(this.createForm()).subscribe(
+      (response) => {
+        this.getEpisodes();
+        this.modalService.dismissAll();
+      },
+      (error) => {}
+    );
+  }
+
+  deleteEpisode(episodeId): void {
+    console.log('id' + episodeId);
+    this.episodeService.deleteEpisode(episodeId).subscribe(
       (response) => {
         this.getEpisodes();
         this.modalService.dismissAll();

@@ -11,9 +11,7 @@ import org.perscholas.podcaster.repository.PodcastRepository;
 import org.perscholas.podcaster.utils.S3;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -63,4 +61,19 @@ public class EpisodeController {
         this.episodeRepository.save(newEpisode);
         return ResponseEntity.ok().build();
     }
+
+    @DeleteMapping(value = "/creator/episode/delete")
+    public ResponseEntity deleteEpisode(@RequestParam Integer episodeId) {
+
+        System.out.println("podcastId :" +episodeId);
+        Optional<Episode> toDelete = this.episodeRepository.findById(episodeId);
+        if(toDelete.isPresent()){
+            System.out.println("exist" +episodeId);
+            Episode episode= toDelete.get();
+            this.episodeRepository.deleteById(episodeId);
+        }
+        return ResponseEntity.ok().build();
+    }
+
+
 }

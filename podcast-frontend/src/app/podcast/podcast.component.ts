@@ -13,7 +13,7 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class PodcastComponent implements OnInit {
   myRate: number;
-  averageRate = 3;
+  averageRate: number;
   @Input() podcast: Podcast;
   isSubscribedTo$: Observable<boolean>;
   isSubscribedTo: boolean;

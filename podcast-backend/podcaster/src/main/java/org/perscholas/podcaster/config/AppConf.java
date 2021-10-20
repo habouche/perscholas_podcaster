@@ -15,12 +15,4 @@ public class AppConf implements WebMvcConfigurer {
                 .allowedOrigins("http://localhost:4200")
                 .allowedMethods("GET","POST");
     }
-
-    /*@Bean(name = "multipartResolver")
-    public CommonsMultipartResolver multipartResolver() {
-        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-        multipartResolver.setMaxUploadSize(1000000000);
-        multipartResolver.setPreserveFilename(true);
-        return multipartResolver;
-    }*/
 }

@@ -36,8 +36,4 @@ public class UserController {
         boolean isCreator = this.userService.isCreator(username);
         return new ResponseEntity<>(isCreator, HttpStatus.OK);
     }
-
-
-
-
 }

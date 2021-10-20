@@ -67,8 +67,6 @@ public class RatingController {
 
     }
 
-
-
     @GetMapping("/user/rating")
     @ResponseBody
     public Integer getPodcastRatingByUser(@RequestParam String username, @RequestParam Integer id) {

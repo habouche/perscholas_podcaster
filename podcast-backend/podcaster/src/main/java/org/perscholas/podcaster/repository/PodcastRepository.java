@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.Set;
 
 public interface PodcastRepository extends JpaRepository<Podcast, Integer> {
+
+    Podcast findByTitle(String title);
+
     @Override
     Podcast getById(Integer integer);
 
