@@ -1,6 +1,8 @@
 package org.perscholas.podcaster.controller;
 
 
+import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.LifecycleState;
 import org.apache.commons.io.FileUtils;
 import org.perscholas.podcaster.dto.EpisodeForm;
 import org.perscholas.podcaster.dto.PodcastForm;
@@ -9,16 +11,26 @@ import org.perscholas.podcaster.entity.Podcast;
 import org.perscholas.podcaster.repository.EpisodeRepository;
 import org.perscholas.podcaster.repository.PodcastRepository;
 import org.perscholas.podcaster.utils.S3;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
+@Slf4j
 public class EpisodeController {
 
     @Autowired
@@ -30,9 +42,23 @@ public class EpisodeController {
     @Autowired
     private S3 s3;
 
-    @PostMapping(value = "/creator/episode/add",consumes = { "multipart/form-data" })
-    public ResponseEntity addEpisode(@ModelAttribute EpisodeForm episodeForm) throws IOException {
 
+
+    //Logger logger = LoggerFactory.getLogger(EpisodeController.class);
+
+
+    @PostMapping(value = "/creator/episode/add",consumes = { "multipart/form-data" })
+    public ResponseEntity addEpisode(@Valid @ModelAttribute EpisodeForm episodeForm, BindingResult bindingResult) throws IOException {
+
+        if(bindingResult.hasErrors()){
+            bindingResult.getAllErrors().stream().forEach(System.out::println);
+            log.error("Episode validation error");
+            List<String> returnErrors = new ArrayList<>();
+            for(ObjectError error : bindingResult.getAllErrors()){
+                returnErrors.add(error.getDefaultMessage());
+            }
+            return new ResponseEntity(returnErrors, HttpStatus.BAD_REQUEST);
+        }
         System.out.println("episodeForm" + episodeForm);
         System.out.println("podcastId" + episodeForm.getPodcastId());
 

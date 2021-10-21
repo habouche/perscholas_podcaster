@@ -14,6 +14,7 @@ import { SubscriptionsComponent } from './subscriptions/subscriptions.component'
 import { CreatorPodcastComponent } from './creator-podcast/creator-podcast.component';
 import { CreatorPodcastsComponent } from './creator-podcasts/creator-podcasts.component';
 import { CreatorEpisodesComponent } from './creator-episodes/creator-episodes.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -82,6 +83,8 @@ const routes: Routes = [
     component: SignupComponent,
     // canActivate: [RouteGuardService],
   },
+  { path: '404', component: NotFoundComponent },
+  { path: '**', redirectTo: '/404' },
   // {
   //   path: 'todos/:id',
   //   component: TodoComponent,

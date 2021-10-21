@@ -24,6 +24,8 @@ export class CreatorEpisodesComponent implements OnInit {
   closeResult: string;
   uploadForm: FormGroup;
   uploadFormData;
+  uploadErrorBoolean;
+  uploadError = 'Server error : ';
   //   title: new FormControl(''),
   //   description: new FormControl(''),
   // });
@@ -120,7 +122,10 @@ export class CreatorEpisodesComponent implements OnInit {
         this.getEpisodes();
         this.modalService.dismissAll();
       },
-      (error) => {}
+      (error) => {
+        this.uploadErrorBoolean = true;
+        this.uploadError = error.error;
+      }
     );
   }
 

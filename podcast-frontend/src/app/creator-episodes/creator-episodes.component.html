@@ -71,6 +71,8 @@
       <label>Audio File</label>
       <input type="file" class="form-control" id="audio" (change)="onFileSelect($event)" name="audio">
     </fieldset>
+    <div class="alert alert-danger" *ngIf="uploadErrorBoolean">{{uploadError}}</div>
+
     <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
     <button type="submit" class="btn btn-success m-4" [disabled]="!uploadForm.valid">Save </button>
   </form>

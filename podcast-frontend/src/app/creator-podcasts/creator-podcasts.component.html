@@ -21,7 +21,7 @@
         <td>{{podcast.description}}</td>
         <td>{{podcast.dateLaunched | date}}</td>
         <td><button (click)="updatePodcast(podcast.id)" class="btn btn-success">Update </button></td>
-        <td><button (click)="deletePodcast(podcast.id)" class="btn btn-warning">Delete </button></td>
+        <td><button disabled (click)="deletePodcast(podcast.id)" class="btn btn-warning">Delete </button></td>
       </tr>
     </tbody>
   </table>

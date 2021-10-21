@@ -57,7 +57,7 @@ export class PodcastComponent implements OnInit {
       .subscribe(
         (response) => {
           // console.log('my rating response in component:' + response);
-          this.averageRate = response;
+          this.averageRate = this.round(response);
           this.modalService.dismissAll('Save Click');
         },
         (error) => {
@@ -80,11 +80,21 @@ export class PodcastComponent implements OnInit {
       );
   }
 
+  // roundToTwo(num): number {
+  //   return +(Math.round(num + e + 2) + e - 2);
+  // }
+
+  round(num): number {
+    const m = Number((Math.abs(num) * 100).toPrecision(15));
+    return (Math.round(m) / 100) * Math.sign(num);
+  }
+
   getAverageRating(): void {
     this.podcastService.getAvergaeRating(this.podcast.id).subscribe(
       (response) => {
         // console.log('response in component:' + response);
-        this.averageRate = response;
+        this.averageRate = this.round(response);
+        console.log('Average:' + Number(response.toFixed(2)));
       },
       (error) => {
         console.log(JSON.stringify(error));
