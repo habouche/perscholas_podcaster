@@ -33,3 +33,6 @@ Podcaster is a Angular/Spring application :
 ## Demo
 
 Podcaster is live at : (https://podcaster-frontend.herokuapp.com/).
+Simple user credentials :
+Username: User
+Password: User123
